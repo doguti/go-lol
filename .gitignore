@@ -1,0 +1,6 @@
+*.test
+.github/
+.gitignore
+.idea/
+.travis.yml
+
