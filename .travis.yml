@@ -9,9 +9,7 @@ matrix:
     - go: master
   fast_finish: true
 install:
-  - go get code.google.com/p/go.tools/cmd/cover 
-  - go get github.com/mattn/goveralls
-  - go get github.com/modocache/gover
+  - go get github.com/mattn/goveralls github.com/modocache/gover
 script:
   - go get -t -v ./...
   - go generate -x ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code) # Check that go generate ./... produces a zero diff; clean up any changes afterwards.
