@@ -19,11 +19,6 @@ const (
 	userAgent      = "go-lol/" + libraryVersion
 )
 
-func main(){
-	fmt.Printf("HELLO")
-
-}
-
 // A Client manages communication with the LOL API.
 type Client struct {
 	clientMu sync.Mutex   // clientMu protects the client during calls that modify the CheckRedirect func.
