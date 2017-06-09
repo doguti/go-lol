@@ -154,7 +154,7 @@ func CheckResponse(r *http.Response) error {
 }
 
 func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
-	ctx, req = ctx, req.WithContext(ctx)
+	req = req.WithContext(ctx)
 
 	resp, err := c.client.Do(req)
 

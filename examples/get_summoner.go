@@ -13,7 +13,7 @@ func main(){
 
 	c := lol.NewClient(nil, api_key)
 
-	ch,res, err := c.Summoners.Get(context.Background(),"WolfKon")
+	ch,_, err := c.Summoners.Get(context.Background(),"WolfKon")
 
 	if err != nil{
 		fmt.Printf("%+v", err)
