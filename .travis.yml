@@ -14,5 +14,5 @@ script:
   - go get -t -v ./...
   - go generate -x ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code) # Check that go generate ./... produces a zero diff; clean up any changes afterwards.
   - go tool vet .
-  - go test -v -race ./lol
+  - go test -v -race ./...
   - goveralls -service=travis-ci -repotoken=$COVERALLS_TOKEN

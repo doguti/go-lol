@@ -59,7 +59,7 @@ func TestChampionService_Get_specifiedIdChampion(t *testing.T) {
 		fmt.Fprint(w, `{"id":12}`)
 	})
 
-	champions, _, err := client.Champions.Get(context.Background(), "12", "ID")
+	champions, _, err := client.Champions.Get(context.Background(), 12)
 	if err != nil {
 		t.Errorf("Champion.Get returned error: %v", err)
 	}
@@ -79,7 +79,7 @@ func TestChampionService_Get_specifiedIdChampionWithoutMethod(t *testing.T) {
 		fmt.Fprint(w, `{"id":12}`)
 	})
 
-	champions, _, err := client.Champions.Get(context.Background(), "12", "")
+	champions, _, err := client.Champions.Get(context.Background(), 12)
 	if err != nil {
 		t.Errorf("Champion.Get returned error: %v", err)
 	}
@@ -89,16 +89,3 @@ func TestChampionService_Get_specifiedIdChampionWithoutMethod(t *testing.T) {
 		t.Errorf("Champion.Get returned %+v, want %+v", champions, want)
 	}
 }
-
-//func TestSummonersService_Get_invalidSummoner(t *testing.T) {
-//	_, _, err := client.Summoners.Get(context.Background(), "%")
-//	testURLParseError(t, err)
-//}
-
-//func TestChampionService_Get_ImgURL(t *testing.T){
-//	want := fmt.Sprintf("%v/%v.png", profileIconURL, 2)
-//	imgURL := client.Summoners.GetImgURL(2)
-//	if !reflect.DeepEqual(imgURL, want) {
-//		t.Errorf("Summoners.GetImgURL returned %+v, want %+v", imgURL, want)
-//	}
-//}

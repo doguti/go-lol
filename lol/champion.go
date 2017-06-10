@@ -3,7 +3,6 @@ package lol
 import (
 	"context"
 	"fmt"
-	"errors"
 )
 
 type ChampionService service
@@ -22,21 +21,9 @@ type Champion struct {
 // Methods
 //  Id
 // By Default will be a champion information.
-func (s *ChampionService) Get(ctx context.Context, param string, method string) (*Champion, *Response, error) {
-	var c string
 
-	switch method {
-	case "ID":
-		if param == "" {
-			return nil, nil, errors.New("Need to set a Champion ID")
-		}
-		c = fmt.Sprintf("%v/%v?api_key=%s", s.client.ChampionURL, param, s.client.keyLol)
-	default:
-		if param == "" {
-			return nil, nil ,errors.New("Need to set a Champion ID")
-		}
-		c = fmt.Sprintf("%v/%v?api_key=%s", s.client.ChampionURL, param, s.client.keyLol)
-	}
+func (s *ChampionService) Get(ctx context.Context, id int) (*Champion, *Response, error) {
+	c := fmt.Sprintf("%v/%v", s.client.ChampionURL, id)
 
 	req, err := s.client.NewRequest("GET", c, nil)
 	if err != nil {
@@ -54,8 +41,7 @@ func (s *ChampionService) Get(ctx context.Context, param string, method string) 
 
 // GetAll fetches a collection of Champion information.
 func (s *ChampionService) GetAll(ctx context.Context) ([]*Champion, *Response, error) {
-	var c string
-	c = fmt.Sprintf("%v?api_key=%s", s.client.ChampionURL, s.client.keyLol)
+	c := fmt.Sprintf("%v", s.client.ChampionURL)
 
 	req, err := s.client.NewRequest("GET", c, nil)
 	if err != nil {

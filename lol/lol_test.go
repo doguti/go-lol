@@ -203,7 +203,7 @@ func TestBool(t *testing.T){
 func TestNewRequest(t *testing.T) {
 	c := NewClient(nil,"")
 
-	inURL, outURL := "foo", defaultBaseURL+"foo"
+	inURL, outURL := "foo", defaultBaseURL+"foo?api_key="
 	req, _ := c.NewRequest("GET", inURL, "")
 
 	// test that relative URL was expanded
