@@ -26,40 +26,48 @@ type Summoner struct {
 //  Id
 // By Default will be Name
 
-func (s *SummonerService) Get(ctx context.Context, param string, method string) (*Summoner, *Response, error) {
-	var c string
 
-	switch method{
-	case "Account":
-		if param == "" {
-			return nil, nil ,errors.New("Need to set a Account ID")
-		}
-		c = fmt.Sprintf("%v/by-account/%v?api_key=%s", s.client.SummonerURL, param, s.client.keyLol)
-	case "ID":
-		if param == "" {
-			return nil, nil ,errors.New("Need to set a Summoner ID")
-		}
-		c = fmt.Sprintf("%v/%v?api_key=%s", s.client.SummonerURL,param, s.client.keyLol)
-	default:
-		if param == "" {
-			return nil, nil ,errors.New("Need to set a Summoner Name")
-		}
-		c = fmt.Sprintf("%v/by-name/%v?api_key=%s", s.client.SummonerURL,param, s.client.keyLol)
+
+func (s *SummonerService) GetByName(ctx context.Context, name string) (interface{}, *Response, error) {
+	if name == "" {
+
+		return nil, nil ,errors.New("Need to set a Summoner Name")
+
+	}else{
+
+		c := fmt.Sprintf("%v/by-name/%v", s.client.SummonerURL,name)
+
+		return getSummoner(s, ctx, c, new(Summoner))
+
 	}
+}
 
+func (s *SummonerService) GetByID(ctx context.Context, id int) (interface{}, *Response, error) {
+
+		c := fmt.Sprintf("%v/%v", s.client.SummonerURL, id)
+		return getSummoner(s, ctx, c, new(Summoner))
+
+}
+
+func (s *SummonerService) GetByAccountID(ctx context.Context, id int) (interface{}, *Response, error) {
+
+	c := fmt.Sprintf("%v/by-account/%v", s.client.SummonerURL, id)
+	return getSummoner(s, ctx, c, new(Summoner))
+
+}
+
+func getSummoner(s *SummonerService, ctx context.Context, c string, inter interface{}) (interface{}, *Response, error){
 	req, err := s.client.NewRequest("GET", c, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	uResp := new(Summoner)
-	resp, err := s.client.Do(ctx, req, uResp)
+	resp, err := s.client.Do(ctx, req, inter)
 	if err != nil {
 		return nil, resp, err
 	}
 
-
-	return uResp, resp, nil
+	return inter, resp, nil
 }
 
 func (s *SummonerService) GetImgURL(profileIcon int) string{

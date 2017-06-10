@@ -1,12 +1,10 @@
 package lol
 
 import (
-	//"context"
-	//"fmt"
-	//"net/http"
-	//"reflect"
-	"testing"
+	"context"
+	"net/http"
 	"reflect"
+	"testing"
 	"fmt"
 )
 
@@ -33,18 +31,17 @@ func TestSummoner_marshall(t *testing.T) {
 	testJSONMarshal(t, s, want)
 }
 
-/*
 
-func TestSummonersService_Get_specifiedSummoner(t *testing.T) {
+func TestSummonerService_GetByID(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("summoner/v3/summoners/by-name/SummonerName?api_key=PRIVATE", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/" + summonerURL+"/23231", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `{"id":23231}`)
 	})
 
-	summoner, _, err := client.Summoners.Get(context.Background(), "SummonerName")
+	summoner, _, err := client.Summoners.GetByID(context.Background(), 23231)
 	if err != nil {
 		t.Errorf("Summoners.Get returned error: %v", err)
 	}
@@ -56,12 +53,55 @@ func TestSummonersService_Get_specifiedSummoner(t *testing.T) {
 }
 
 
-func TestSummonersService_Get_invalidSummoner(t *testing.T) {
-	_, _, err := client.Summoners.Get(context.Background(), "%")
-	testURLParseError(t, err)
-}*/
+func TestSummonerService_GetByAccountID(t *testing.T) {
+	setup()
+	defer teardown()
 
-func TestSummonersService_Get_ImgURL(t *testing.T){
+	mux.HandleFunc("/" + summonerURL+"/by-account/23231", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		fmt.Fprint(w, `{"id":23231}`)
+	})
+
+	summoner, _, err := client.Summoners.GetByAccountID(context.Background(), 23231)
+	if err != nil {
+		t.Errorf("Summoners.Get returned error: %v", err)
+	}
+
+	want := &Summoner{ID: Int(23231)}
+	if !reflect.DeepEqual(summoner, want) {
+		t.Errorf("Summoners.Get returned %+v, want %+v", summoner, want)
+	}
+}
+
+
+func TestSummonerService_GetByName(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/" + summonerURL+"/by-name/SummonerName", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		fmt.Fprint(w, `{"id":23231}`)
+	})
+
+	summoner, _, err := client.Summoners.GetByName(context.Background(), "SummonerName")
+	if err != nil {
+		t.Errorf("Summoners.Get returned error: %v", err)
+	}
+
+	want := &Summoner{ID: Int(23231)}
+	if !reflect.DeepEqual(summoner, want) {
+		t.Errorf("Summoners.Get returned %+v, want %+v", summoner, want)
+	}
+
+}
+
+
+func TestSummonersService_Get_invalidSummonerName(t *testing.T) {
+	_, _, err := client.Summoners.GetByName(context.Background(), "%")
+	testURLParseError(t, err)
+}
+
+func TestSummonerService_GetImgURL(t *testing.T){
 	want := fmt.Sprintf("%v/%v.png", profileIconURL, 2)
 	imgURL := client.Summoners.GetImgURL(2)
 	if !reflect.DeepEqual(imgURL, want) {

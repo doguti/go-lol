@@ -87,7 +87,7 @@ func NewClient(httpClient *http.Client, key string) *Client {
 // specified, the value pointed to by body is JSON encoded and included as the
 // request body.
 func (c *Client) NewRequest(method, urlStr string, body interface{}) (*http.Request, error) {
-	rel, err := url.Parse(urlStr)
+	rel, err := url.Parse(fmt.Sprintf("%v?api_key=%s",urlStr,c.keyLol))
 	if err != nil {
 		return nil, err
 	}

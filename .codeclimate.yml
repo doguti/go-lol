@@ -1,0 +1,15 @@
+---
+exclude_paths:
+- ".git/"
+- "examples/"
+- "docs/"
+- "tests/"
+- "**.gif"
+- "**.html"
+- "**.json"
+- "**.png"
+- "**.svg"
+- "**.xml"
+- "**.yaml"
+- "**.yml"
+- "**.md"
