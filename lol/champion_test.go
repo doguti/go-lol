@@ -34,9 +34,9 @@ func TestChampionService_GetAll(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc(championURL, func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+championURL, func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, `[{"id":2}]`)
+		fmt.Fprint(w, `[{"id":12},{"id":13}]`)
 	})
 
 	champions, _, err := client.Champions.GetAll(context.Background())
@@ -44,7 +44,7 @@ func TestChampionService_GetAll(t *testing.T) {
 		t.Errorf("Champion.Get returned error: %v", err)
 	}
 
-	want := []*Champion{{ID: Int(2)}}
+	want := []*Champion{{ID: Int(12)},{ID: Int(13)}}
 	if !reflect.DeepEqual(champions, want) {
 		t.Errorf("Champion.GetAll returned %+v, want %+v", champions, want)
 	}
