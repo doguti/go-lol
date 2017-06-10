@@ -41,7 +41,7 @@ func TestChampionService_GetAll(t *testing.T) {
 
 	champions, _, err := client.Champions.GetAll(context.Background())
 	if err != nil {
-		t.Errorf("Champion.Get returned error: %v", err)
+		t.Errorf("Champion.GetAll returned error: %v", err)
 	}
 
 	want := []*Champion{{ID: Int(12)},{ID: Int(13)}}
@@ -50,33 +50,50 @@ func TestChampionService_GetAll(t *testing.T) {
 	}
 }
 
-/*
-
-func TestSummonersService_Get_specifiedSummoner(t *testing.T) {
+func TestChampionService_Get_specifiedIdChampion(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("summoner/v3/summoners/by-name/SummonerName?api_key=PRIVATE", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+championURL+"/12", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"id":23231}`)
+		fmt.Fprint(w, `{"id":12}`)
 	})
 
-	summoner, _, err := client.Summoners.Get(context.Background(), "SummonerName")
+	champions, _, err := client.Champions.Get(context.Background(), "12", "ID")
 	if err != nil {
-		t.Errorf("Summoners.Get returned error: %v", err)
+		t.Errorf("Champion.Get returned error: %v", err)
 	}
 
-	want := &Summoner{ID: Int(23231)}
-	if !reflect.DeepEqual(summoner, want) {
-		t.Errorf("Summoners.Get returned %+v, want %+v", summoner, want)
+	want := &Champion{ID: Int(12)}
+	if !reflect.DeepEqual(champions, want) {
+		t.Errorf("Champion.Get returned %+v, want %+v", champions, want)
 	}
 }
 
+func TestChampionService_Get_specifiedIdChampionWithoutMethod(t *testing.T) {
+	setup()
+	defer teardown()
 
-func TestSummonersService_Get_invalidSummoner(t *testing.T) {
-	_, _, err := client.Summoners.Get(context.Background(), "%")
-	testURLParseError(t, err)
-}*/
+	mux.HandleFunc("/"+championURL+"/12", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		fmt.Fprint(w, `{"id":12}`)
+	})
+
+	champions, _, err := client.Champions.Get(context.Background(), "12", "")
+	if err != nil {
+		t.Errorf("Champion.Get returned error: %v", err)
+	}
+
+	want := &Champion{ID: Int(12)}
+	if !reflect.DeepEqual(champions, want) {
+		t.Errorf("Champion.Get returned %+v, want %+v", champions, want)
+	}
+}
+
+//func TestSummonersService_Get_invalidSummoner(t *testing.T) {
+//	_, _, err := client.Summoners.Get(context.Background(), "%")
+//	testURLParseError(t, err)
+//}
 
 //func TestChampionService_Get_ImgURL(t *testing.T){
 //	want := fmt.Sprintf("%v/%v.png", profileIconURL, 2)
