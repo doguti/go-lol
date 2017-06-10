@@ -28,7 +28,7 @@ type Summoner struct {
 
 
 
-func (s *SummonerService) GetByName(ctx context.Context, name string) (interface{}, *Response, error) {
+func (s *SummonerService) GetByName(ctx context.Context, name string) (*Summoner, *Response, error) {
 	if name == "" {
 
 		return nil, nil ,errors.New("Need to set a Summoner Name")
@@ -37,37 +37,38 @@ func (s *SummonerService) GetByName(ctx context.Context, name string) (interface
 
 		c := fmt.Sprintf("%v/by-name/%v", s.client.SummonerURL,name)
 
-		return getSummoner(s, ctx, c, new(Summoner))
+		return getSummoner(s, ctx, c)
 
 	}
 }
 
-func (s *SummonerService) GetByID(ctx context.Context, id int) (interface{}, *Response, error) {
+func (s *SummonerService) GetByID(ctx context.Context, id int) (*Summoner, *Response, error) {
 
 		c := fmt.Sprintf("%v/%v", s.client.SummonerURL, id)
-		return getSummoner(s, ctx, c, new(Summoner))
+		return getSummoner(s, ctx, c)
 
 }
 
-func (s *SummonerService) GetByAccountID(ctx context.Context, id int) (interface{}, *Response, error) {
+func (s *SummonerService) GetByAccountID(ctx context.Context, id int) (*Summoner, *Response, error) {
 
 	c := fmt.Sprintf("%v/by-account/%v", s.client.SummonerURL, id)
-	return getSummoner(s, ctx, c, new(Summoner))
+	return getSummoner(s, ctx, c)
 
 }
 
-func getSummoner(s *SummonerService, ctx context.Context, c string, inter interface{}) (interface{}, *Response, error){
+func getSummoner(s *SummonerService, ctx context.Context, c string) (*Summoner, *Response, error){
 	req, err := s.client.NewRequest("GET", c, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	resp, err := s.client.Do(ctx, req, inter)
+	uResp := new(Summoner)
+	resp, err := s.client.Do(ctx, req, uResp)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return inter, resp, nil
+	return uResp, resp, nil
 }
 
 func (s *SummonerService) GetImgURL(profileIcon int) string{
