@@ -8,11 +8,16 @@ matrix:
   allow_failures:
     - go: master
   fast_finish: true
-install:
-  - go get github.com/mattn/goveralls github.com/modocache/gover
+before_install:
+  - go get github.com/axw/gocov/gocov
+  - go get github.com/mattn/goveralls
+  - go get github.com/pierrre/gotestcover
+  - if ! go get github.com/golang/tools/cmd/cover; then go get golang.org/x/tools/cmd/cover; fi
 script:
   - go get -t -v ./...
   - go generate -x ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code) # Check that go generate ./... produces a zero diff; clean up any changes afterwards.
   - go tool vet .
   - go test -v -race ./...
-  - goveralls -service=travis-ci -repotoken=$COVERALLS_TOKEN
+  - $HOME/gopath/bin/gotestcover -v -tags=model -coverprofile=cover.out ./...
+after_success:
+  - $HOME/gopath/bin/goveralls -service=travis-ci -coverprofile=cover.out
