@@ -102,6 +102,9 @@ func TestNewClient(t *testing.T) {
 	if got, want := c.SummonerURL, summonerURL; got != want {
 		t.Errorf("NewClient SummonerURL is %v, want %v", got, want)
 	}
+	if got, want := c.ChampionURL, championURL; got != want {
+		t.Errorf("NewClient ChampionURL is %v, want %v", got, want)
+	}
 }
 
 func testJSONMarshal(t *testing.T, v interface{}, want string) {

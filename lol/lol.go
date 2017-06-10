@@ -20,6 +20,7 @@ const (
 	userAgent      = "go-lol/" + libraryVersion
 
 	summonerURL    = "summoner/v3/summoners"
+	championURL    = "platform/v3/champions"
 )
 
 // A Client manages communication with the LOL API.
@@ -42,10 +43,12 @@ type Client struct {
 
 	// Services used for talking to different parts of the LOL API.
 	Summoners          *SummonerService
+	Champions          *ChampionService
 
 
 	//EndPoints
 	SummonerURL string
+	ChampionURL string
 }
 
 type service struct {
@@ -68,10 +71,12 @@ func NewClient(httpClient *http.Client, key string) *Client {
 		BaseURL: baseURL,
 		ProfileIconURL: profileIconURL,
 		UserAgent: userAgent,
-		SummonerURL: summonerURL}
+		SummonerURL: summonerURL,
+		ChampionURL: championURL}
 	c.common.client = c
 	c.keyLol = key
 	c.Summoners = (*SummonerService)(&c.common)
+	c.Champions = (*ChampionService)(&c.common)
 	return c
 }
 
