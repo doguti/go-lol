@@ -96,6 +96,12 @@ func TestNewClient(t *testing.T) {
 	if got, want := c.UserAgent, userAgent; got != want {
 		t.Errorf("NewClient UserAgent is %v, want %v", got, want)
 	}
+	if got, want := c.ProfileIconURL.String(), profileIconURL; got != want {
+		t.Errorf("NewClient ProfileIconURL is %v, want %v", got, want)
+	}
+	if got, want := c.SummonerURL, summonerURL; got != want {
+		t.Errorf("NewClient SummonerURL is %v, want %v", got, want)
+	}
 }
 
 func testJSONMarshal(t *testing.T, v interface{}, want string) {

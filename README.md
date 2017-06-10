@@ -11,6 +11,7 @@ go-lol is a Go client library for accessing the [GitHub API][].
 **Test Coverage:** [![Test Coverage](https://coveralls.io/repos/github/doguti/go-lol/badge.svg?branch=master)](https://coveralls.io/github/doguti/go-lol?branch=master)
 
 **Build History**
+
 [![Build history for master branch](https://buildstats.info/travisci/chart/doguti/go-lol?branch=master&buildCount=50)](https://travis-ci.org/doguti/go-lol/branches)
 
 go-lol requires Go version 1.7 or greater.
@@ -36,7 +37,7 @@ func main(){
 	api_key := "<KEY API>"
 	ctx := context.Background()
 	c := lol.NewClient(nil, api_key)
-	ch,res,_ := c.Champions.Get(ctx,"<USER>")
+	ch,res,_ := c.Champions.Get(ctx,"<USER>","<Method Name by default>")
 	fmt.Printf("%s   %+v",ch.Name,res)
 
 }

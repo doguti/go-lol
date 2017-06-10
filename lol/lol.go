@@ -16,7 +16,10 @@ const (
 	libraryVersion = "0.1"
 	region         = "euw1"
 	defaultBaseURL = "https://"+ region +".api.riotgames.com/lol/"
+	profileIconURL = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/"
 	userAgent      = "go-lol/" + libraryVersion
+
+	summonerURL    = "summoner/v3/summoners"
 )
 
 // A Client manages communication with the LOL API.
@@ -28,6 +31,7 @@ type Client struct {
 	// set to a domain endpoint to use with LOL RIOT. BaseURL should
 	// always be specified with a trailing slash.
 	BaseURL *url.URL
+	ProfileIconURL *url.URL
 
 	// User agent used when communicating with the LOL API.
 	UserAgent string
@@ -38,6 +42,10 @@ type Client struct {
 
 	// Services used for talking to different parts of the LOL API.
 	Summoners          *SummonerService
+
+
+	//EndPoints
+	SummonerURL string
 }
 
 type service struct {
@@ -54,7 +62,13 @@ func NewClient(httpClient *http.Client, key string) *Client {
 		httpClient = http.DefaultClient
 	}
 	baseURL, _ := url.Parse(defaultBaseURL)
-	c := &Client{client: httpClient, BaseURL: baseURL, UserAgent: userAgent}
+	profileIconURL, _ := url.Parse(profileIconURL)
+	c := &Client{
+		client: httpClient,
+		BaseURL: baseURL,
+		ProfileIconURL: profileIconURL,
+		UserAgent: userAgent,
+		SummonerURL: summonerURL}
 	c.common.client = c
 	c.keyLol = key
 	c.Summoners = (*SummonerService)(&c.common)

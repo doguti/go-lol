@@ -18,17 +18,35 @@ type Summoner struct {
 	AccountID	    *int	 `json:"accountId,omitempty"` 		//Account ID.
 }
 
-// Get fetches a user. Passing the empty string will fetch the authenticated
-// user.
-//
-// GitHub API docs: https://developer.github.com/v3/users/#get-a-single-user
-func (s *SummonerService) Get(ctx context.Context, summoner string) (*Summoner, *Response, error) {
+// Get fetches a summoner. Passing the empty string will fetch the authenticated
+// summoner.
+// Methods
+//  Name
+//  Account
+//  Id
+// By Default will be Name
+
+func (s *SummonerService) Get(ctx context.Context, param string, method string) (*Summoner, *Response, error) {
 	var c string
-	if summoner != "" {
-		c = fmt.Sprintf("summoner/v3/summoners/by-name/%v?api_key=%s", summoner, s.client.keyLol)
-	} else {
-		return nil, nil ,errors.New("Need to set a champion name")
+
+	switch method{
+	case "Account":
+		if param == "" {
+			return nil, nil ,errors.New("Need to set a Account ID")
+		}
+		c = fmt.Sprintf("%v/by-account/%v?api_key=%s", s.client.SummonerURL, param, s.client.keyLol)
+	case "ID":
+		if param == "" {
+			return nil, nil ,errors.New("Need to set a Summoner ID")
+		}
+		c = fmt.Sprintf("%v/%v?api_key=%s", s.client.SummonerURL,param, s.client.keyLol)
+	default:
+		if param == "" {
+			return nil, nil ,errors.New("Need to set a Summoner Name")
+		}
+		c = fmt.Sprintf("%v/by-name/%v?api_key=%s", s.client.SummonerURL,param, s.client.keyLol)
 	}
+
 	req, err := s.client.NewRequest("GET", c, nil)
 	if err != nil {
 		return nil, nil, err
@@ -40,5 +58,12 @@ func (s *SummonerService) Get(ctx context.Context, summoner string) (*Summoner, 
 		return nil, resp, err
 	}
 
+
 	return uResp, resp, nil
+}
+
+func (s *SummonerService) GetImgURL(profileIcon int) string{
+
+	return fmt.Sprintf("%v/%v.png", s.client.ProfileIconURL.String(), profileIcon)
+
 }
