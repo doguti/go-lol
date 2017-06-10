@@ -1,10 +1,10 @@
 package lol
 
 import (
-	//"context"
-	//"fmt"
-	//"net/http"
-	//"reflect"
+	"context"
+	"fmt"
+	"net/http"
+	"reflect"
 	"testing"
 )
 
@@ -28,6 +28,26 @@ func TestChampion_marshall(t *testing.T) {
 		"id": 1202
 	}`
 	testJSONMarshal(t, s, want)
+}
+
+func TestChampionService_GetAll(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc(championURL, func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		fmt.Fprint(w, `[{"id":2}]`)
+	})
+
+	champions, _, err := client.Champions.GetAll(context.Background())
+	if err != nil {
+		t.Errorf("Champion.Get returned error: %v", err)
+	}
+
+	want := []*Champion{{ID: Int(2)}}
+	if !reflect.DeepEqual(champions, want) {
+		t.Errorf("Champion.GetAll returned %+v, want %+v", champions, want)
+	}
 }
 
 /*
