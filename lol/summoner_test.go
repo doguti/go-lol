@@ -6,6 +6,8 @@ import (
 	//"net/http"
 	//"reflect"
 	"testing"
+	"reflect"
+	"fmt"
 )
 
 
@@ -58,3 +60,11 @@ func TestSummonersService_Get_invalidSummoner(t *testing.T) {
 	_, _, err := client.Summoners.Get(context.Background(), "%")
 	testURLParseError(t, err)
 }*/
+
+func TestSummonersService_Get_ImgURL(t *testing.T){
+	want := fmt.Sprintf("%v/%v.png", profileIconURL, 2)
+	imgURL := client.Summoners.GetImgURL(2)
+	if !reflect.DeepEqual(imgURL, want) {
+		t.Errorf("Summoners.GetImgURL returned %+v, want %+v", imgURL, want)
+	}
+}
