@@ -1,3 +1,4 @@
+// +build model
 package lol
 
 import (

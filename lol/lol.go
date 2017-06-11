@@ -47,6 +47,7 @@ type Client struct {
 	Champions          *ChampionService
 	Masteries          *MasteriesService
 	Summoners          *SummonerService
+	Statics			   *StaticData
 
 	//EndPoints
 	ChampionMasteryURL string
