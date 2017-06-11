@@ -10,19 +10,16 @@ import(
 	"encoding/json"
 	"fmt"
 	"bytes"
+	"strings"
 )
 
 const (
 	libraryVersion = "0.1"
 	region         = "euw1"
-	defaultBaseURL = "https://"+ region +".api.riotgames.com/lol/"
-	profileIconURL = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/"
+	versionIMG     = "7.11.1"
+	versionLOLURL  = "3"
 	userAgent      = "go-lol/" + libraryVersion
-
-	championMasteryURL = "champion-mastery/v3"
-	championURL    = "platform/v3/champions"
-	masteriesURL   = "platform/v3/masteries"
-	summonerURL    = "summoner/v3/summoners"
+	locale         = "es_ES"
 )
 
 // A Client manages communication with the LOL API.
@@ -42,7 +39,9 @@ type Client struct {
 	keyLol string
 
 	common service
-
+	//language
+	Region string
+	Locale string
 	// Services used for talking to different parts of the LOL API.
 	ChampionMasteries  *ChampionMasteryService
 	Champions          *ChampionService
@@ -51,9 +50,10 @@ type Client struct {
 
 	//EndPoints
 	ChampionMasteryURL string
-	ChampionURL        string
 	MasteriesURL       string
-	SummonerURL        string
+	SummonerURL   string
+	ChampionURL   string
+	StaticDataURL string
 }
 
 type service struct {
@@ -64,21 +64,41 @@ type service struct {
 // provided, http.DefaultClient will be used. To use API methods which require
 // authentication, provide an http.Client that will perform the authentication
 // for you (such as that provided by the golang.org/x/oauth2 library).
-func NewClient(httpClient *http.Client, key string) *Client {
+
+func NewClient(httpClient *http.Client, key string, reg string, lol_v string, static_v string, loc_lg string) *Client {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
 	}
-	baseURL, _ := url.Parse(defaultBaseURL)
-	profileIconURL, _ := url.Parse(profileIconURL)
+	if reg == ""{
+		reg = region
+	}
+	if lol_v == "" {
+		lol_v = versionLOLURL
+	}
+	if static_v == "" {
+		static_v = versionIMG
+	}
+	if loc_lg == ""{
+		loc_lg = locale
+	}
+	if reg == ""{
+		reg = region
+	}
+	baseURL, _ := url.Parse("https://"+ reg +".api.riotgames.com/lol/")
+	profileIconURL, _ := url.Parse("http://ddragon.leagueoflegends.com/cdn/"+ static_v +"/img/")
 	c := &Client{
 		client: httpClient,
 		BaseURL: baseURL,
 		ProfileIconURL: profileIconURL,
 		UserAgent: userAgent,
-		ChampionMasteryURL: championMasteryURL,
-		ChampionURL: championURL,
-		MasteriesURL: masteriesURL,
-		SummonerURL: summonerURL}
+		ChampionMasteryURL: "champion-mastery/v" + lol_v,
+		MasteriesURL: "platform/v"+ lol_v +"/masteries",
+		SummonerURL: "summoner/v"+ lol_v +"/summoners",
+		ChampionURL: "platform/v"+ lol_v +"/champions",
+		StaticDataURL: "static-data/v"+ lol_v +"/",
+		Locale: loc_lg,
+		Region: reg,
+	}
 	c.common.client = c
 	c.keyLol = key
 	c.ChampionMasteries = (*ChampionMasteryService)(&c.common)
@@ -88,6 +108,13 @@ func NewClient(httpClient *http.Client, key string) *Client {
 	return c
 }
 
+func addParamQuery(url string, param string, value string) string{
+	if strings.ContainsAny(url, "?"){
+		return fmt.Sprintf("%v&%s=%s", url, param, value)
+	}else{
+		return fmt.Sprintf("%v?%s=%s", url, param, value)
+	}
+}
 
 // NewRequest creates an API request. A relative URL can be provided in urlStr,
 // in which case it is resolved relative to the BaseURL of the Client.
@@ -95,7 +122,7 @@ func NewClient(httpClient *http.Client, key string) *Client {
 // specified, the value pointed to by body is JSON encoded and included as the
 // request body.
 func (c *Client) NewRequest(method, urlStr string, body interface{}) (*http.Request, error) {
-	rel, err := url.Parse(fmt.Sprintf("%v?api_key=%s",urlStr,c.keyLol))
+	rel, err := url.Parse(addParamQuery(urlStr, "api_key", c.keyLol))
 	if err != nil {
 		return nil, err
 	}

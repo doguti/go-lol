@@ -34,7 +34,7 @@ func TestChampionService_GetAll(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/"+championURL, func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+client.ChampionURL, func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `[{"id":12},{"id":13}]`)
 	})
@@ -54,7 +54,7 @@ func TestChampionService_Get_specifiedIdChampion(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/"+championURL+"/12", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+client.ChampionURL+"/12", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `{"id":12}`)
 	})
@@ -74,7 +74,7 @@ func TestChampionService_Get_specifiedIdChampionWithoutMethod(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/"+championURL+"/12", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+client.ChampionURL+"/12", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `{"id":12}`)
 	})

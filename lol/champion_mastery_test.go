@@ -39,7 +39,7 @@ func TestChampionMasteryService_Get(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/" + championMasteryURL+"/champion-masteries/by-summoner/23231/by-champion/12", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/" + client.ChampionMasteryURL +"/champion-masteries/by-summoner/23231/by-champion/12", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `{"championId":12}`)
 	})
@@ -59,7 +59,7 @@ func TestChampionMasteryService_GetAll(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/" + championMasteryURL+"/champion-masteries/by-summoner/23231", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/" + client.ChampionMasteryURL +"/champion-masteries/by-summoner/23231", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `[{"championId":12},{"championId":13}]`)
 	})
@@ -79,7 +79,7 @@ func TestChampionMasteryService_GetScore(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/"+ championMasteryURL +"/score/by-summoner/23231", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+ client.ChampionMasteryURL +"/score/by-summoner/23231", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `0`)
 	})
