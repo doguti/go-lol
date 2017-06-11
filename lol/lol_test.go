@@ -99,11 +99,14 @@ func TestNewClient(t *testing.T) {
 	if got, want := c.ProfileIconURL.String(), profileIconURL; got != want {
 		t.Errorf("NewClient ProfileIconURL is %v, want %v", got, want)
 	}
-	if got, want := c.SummonerURL, summonerURL; got != want {
-		t.Errorf("NewClient SummonerURL is %v, want %v", got, want)
-	}
 	if got, want := c.ChampionURL, championURL; got != want {
 		t.Errorf("NewClient ChampionURL is %v, want %v", got, want)
+	}
+	if got, want := c.MasteriesURL, masteriesURL; got != want {
+		t.Errorf("NewClient MasteriesURL is %v, want %v", got, want)
+	}
+	if got, want := c.SummonerURL, summonerURL; got != want {
+		t.Errorf("NewClient SummonerURL is %v, want %v", got, want)
 	}
 }
 

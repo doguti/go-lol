@@ -19,8 +19,9 @@ const (
 	profileIconURL = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/"
 	userAgent      = "go-lol/" + libraryVersion
 
-	summonerURL    = "summoner/v3/summoners"
 	championURL    = "platform/v3/champions"
+	masteriesURL   = "platform/v3/masteries"
+	summonerURL    = "summoner/v3/summoners"
 )
 
 // A Client manages communication with the LOL API.
@@ -42,13 +43,14 @@ type Client struct {
 	common service
 
 	// Services used for talking to different parts of the LOL API.
-	Summoners          *SummonerService
 	Champions          *ChampionService
-
+	Masteries          *MasteriesService
+	Summoners          *SummonerService
 
 	//EndPoints
-	SummonerURL string
 	ChampionURL string
+	MasteriesURL string
+	SummonerURL string
 }
 
 type service struct {
@@ -59,7 +61,6 @@ type service struct {
 // provided, http.DefaultClient will be used. To use API methods which require
 // authentication, provide an http.Client that will perform the authentication
 // for you (such as that provided by the golang.org/x/oauth2 library).
-
 func NewClient(httpClient *http.Client, key string) *Client {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
@@ -71,12 +72,14 @@ func NewClient(httpClient *http.Client, key string) *Client {
 		BaseURL: baseURL,
 		ProfileIconURL: profileIconURL,
 		UserAgent: userAgent,
-		SummonerURL: summonerURL,
-		ChampionURL: championURL}
+		ChampionURL: championURL,
+		MasteriesURL: masteriesURL,
+		SummonerURL: summonerURL}
 	c.common.client = c
 	c.keyLol = key
-	c.Summoners = (*SummonerService)(&c.common)
 	c.Champions = (*ChampionService)(&c.common)
+	c.Masteries = (*MasteriesService)(&c.common)
+	c.Summoners = (*SummonerService)(&c.common)
 	return c
 }
 
