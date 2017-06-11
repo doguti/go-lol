@@ -58,18 +58,18 @@ func TestMasteriesService_GetBySummonerId(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/" + summonerURL+"/by-account/23231", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/" + masteriesURL+"/by-summoner/23231", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"id":23231}`)
+		fmt.Fprint(w, `{"summonerId":23231}`)
 	})
 
-	summoner, _, err := client.Summoners.GetByAccountID(context.Background(), 23231)
+	summoner, _, err := client.Masteries.GetBySummonerId(context.Background(), 23231)
 	if err != nil {
-		t.Errorf("Summoners.Get returned error: %v", err)
+		t.Errorf("Masteries.GetBySummonerId returned error: %v", err)
 	}
 
-	want := &Summoner{ID: Int(23231)}
+	want := &Masteries{SummonerId: Int(23231)}
 	if !reflect.DeepEqual(summoner, want) {
-		t.Errorf("Summoners.Get returned %+v, want %+v", summoner, want)
+		t.Errorf("Masteries.GetBySummonerId returned %+v, want %+v", summoner, want)
 	}
 }
