@@ -19,6 +19,7 @@ const (
 	profileIconURL = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/"
 	userAgent      = "go-lol/" + libraryVersion
 
+	championMasteryURL = "champion-mastery/v3"
 	championURL    = "platform/v3/champions"
 	masteriesURL   = "platform/v3/masteries"
 	summonerURL    = "summoner/v3/summoners"
@@ -43,14 +44,16 @@ type Client struct {
 	common service
 
 	// Services used for talking to different parts of the LOL API.
+	ChampionMasteries  *ChampionMasteryService
 	Champions          *ChampionService
 	Masteries          *MasteriesService
 	Summoners          *SummonerService
 
 	//EndPoints
-	ChampionURL string
-	MasteriesURL string
-	SummonerURL string
+	ChampionMasteryURL string
+	ChampionURL        string
+	MasteriesURL       string
+	SummonerURL        string
 }
 
 type service struct {
@@ -72,11 +75,13 @@ func NewClient(httpClient *http.Client, key string) *Client {
 		BaseURL: baseURL,
 		ProfileIconURL: profileIconURL,
 		UserAgent: userAgent,
+		ChampionMasteryURL: championMasteryURL,
 		ChampionURL: championURL,
 		MasteriesURL: masteriesURL,
 		SummonerURL: summonerURL}
 	c.common.client = c
 	c.keyLol = key
+	c.ChampionMasteries = (*ChampionMasteryService)(&c.common)
 	c.Champions = (*ChampionService)(&c.common)
 	c.Masteries = (*MasteriesService)(&c.common)
 	c.Summoners = (*SummonerService)(&c.common)
