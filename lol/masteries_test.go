@@ -58,7 +58,7 @@ func TestMasteriesService_GetBySummonerId(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/" + masteriesURL+"/by-summoner/23231", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/" + client.MasteriesURL+"/by-summoner/23231", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `{"summonerId":23231}`)
 	})
