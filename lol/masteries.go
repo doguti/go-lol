@@ -31,6 +31,7 @@ func (t MasteryPage) String() string {
 
 // Mastery represent a MasteryDto.
 type Mastery struct {
+	MasteryId   *int     `json:"masteryId,omitempty"`
 	Id   *int     `json:"id,omitempty"`   // Summoner name.
 	Rank *int     `json:"rank,omitempty"` //Summoner name.
 }
