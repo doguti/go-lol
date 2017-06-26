@@ -111,6 +111,9 @@ func TestNewClient(t *testing.T) {
 	if got, want := c.MasteriesURL, "platform/v"+ versionLOLURL +"/masteries"; got != want {
 		t.Errorf("NewClient MasteriesURL is %v, want %v", got, want)
 	}
+	if got, want := c.MatchURL, "match/v"+ versionLOLURL; got != want {
+		t.Errorf("NewClient MatchURL is %v, want %v", got, want)
+	}
 	if got, want := c.SummonerURL, "summoner/v"+ versionLOLURL +"/summoners"; got != want {
 		t.Errorf("NewClient SummonerURL is %v, want %v", got, want)
 	}
@@ -150,6 +153,9 @@ func TestNewClientWithVersionParams(t *testing.T) {
 		t.Errorf("NewClient LeagueURL is %v, want %v", got, want)
 	}
 	if got, want := c.MasteriesURL, "platform/v1/masteries"; got != want {
+		t.Errorf("NewClient MasteriesURL is %v, want %v", got, want)
+	}
+	if got, want := c.MatchURL, "match/v1"; got != want {
 		t.Errorf("NewClient MasteriesURL is %v, want %v", got, want)
 	}
 	if got, want := c.SummonerURL, "summoner/v1/summoners"; got != want {
