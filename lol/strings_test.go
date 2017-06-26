@@ -95,6 +95,9 @@ func TestString(t *testing.T) {
 		{ParticipantStats{PhysicalDamageDealt: Int(1)}, `lol.ParticipantStats{PhysicalDamageDealt:1}`},
 		{ParticipantTimeline{ParticipantId: Int(1)}, `lol.ParticipantTimeline{ParticipantId:1}`},
 		{Rune{RuneId: Int(1)}, `lol.Rune{RuneId:1}`},
+		{RunePage{Id: Int(1)}, `lol.RunePage{Id:1}`},
+		{RunePages{SummonerId: Int(1)}, `lol.RunePages{SummonerId:1}`},
+		{RuneSlot{RuneId: Int(1)}, `lol.RuneSlot{RuneId:1}`},
 		{TeamBans{ChampionId: Int(1)}, `lol.TeamBans{ChampionId:1}`},
 		{TeamStats{TeamId: Int(1)}, `lol.TeamStats{TeamId:1}`},
 	}
