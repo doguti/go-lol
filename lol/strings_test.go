@@ -76,7 +76,11 @@ func TestString(t *testing.T) {
 		in  interface{}
 		out string
 	}{
+		{LeagueItem{Rank: String("n")}, `lol.LeagueItem{Rank:"n"}`},
+		{LeagueList{Name: String("n")}, `lol.LeagueList{Name:"n"}`},
+		{LeaguePosition{Rank: String("n")}, `lol.LeaguePosition{Rank:"n"}`},
 		{MasteryPage{Name: String("n")}, `lol.MasteryPage{Name:"n"}`},
+		{MiniSeries{Progress: String("n")}, `lol.MiniSeries{Progress:"n"}`},
 	}
 
 	for i, tt := range tests {
