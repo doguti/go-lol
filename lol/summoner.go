@@ -7,11 +7,12 @@ import (
 	"errors"
 )
 
+// SummonerService represents a service to interact with Summoner API.
 type SummonerService service
 
 // Summoner represent a SummonerDTO.
 type Summoner struct {
-	ProfileIconId *int     `json:"profileIconId,omitempty"` //ID of the summoner icon associated with the summoner.
+	ProfileIconID *int     `json:"profileIconId,omitempty"` //ID of the summoner icon associated with the summoner.
 	Name          *string     `json:"name,omitempty"`       //Summoner name.
 	SummonerLevel *int     `json:"summonerLevel,omitempty"` //Summoner level associated with the summoner.
 	RevisionDate  *int     `json:"revisionDate,omitempty"`  //Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change
@@ -23,34 +24,30 @@ func (t Summoner) String() string {
 	return Stringify(t)
 }
 
-// Get fetches a summoner. Passing the empty string will fetch the authenticated
-// summoner.
-// Methods
-//  Name
-//  Account
-//  Id
-// By Default will be Name
+// GetByName fetches a summoner by summoner name
 func (s *SummonerService) GetByName(ctx context.Context, name string) (*Summoner, *Response, error) {
 	if name == "" {
 		return nil, nil ,errors.New("Need to set a Summoner Name")
-
-	}else{
-		c := fmt.Sprintf("%v/by-name/%v", s.client.SummonerURL,name)
-		return getSummoner(s, ctx, c)
 	}
+
+	c := fmt.Sprintf("%v/by-name/%v", s.client.SummonerURL,name)
+	return getSummoner(ctx, s, c)
 }
 
+// GetByID fetches a summoner by summoner ID
 func (s *SummonerService) GetByID(ctx context.Context, id int) (*Summoner, *Response, error) {
-		c := fmt.Sprintf("%v/%v", s.client.SummonerURL, id)
-		return getSummoner(s, ctx, c)
+	c := fmt.Sprintf("%v/%v", s.client.SummonerURL, id)
+	return getSummoner(ctx, s, c)
 }
 
+// GetByAccountID fetches a summoner by account ID
 func (s *SummonerService) GetByAccountID(ctx context.Context, id int) (*Summoner, *Response, error) {
 	c := fmt.Sprintf("%v/by-account/%v", s.client.SummonerURL, id)
-	return getSummoner(s, ctx, c)
+	return getSummoner(ctx, s, c)
 }
 
-func getSummoner(s *SummonerService, ctx context.Context, c string) (*Summoner, *Response, error){
+// getSummoner fetches a summoner by string
+func getSummoner(ctx context.Context, s *SummonerService, c string) (*Summoner, *Response, error){
 	req, err := s.client.NewRequest("GET", c, nil)
 	if err != nil {
 		return nil, nil, err
@@ -65,6 +62,7 @@ func getSummoner(s *SummonerService, ctx context.Context, c string) (*Summoner, 
 	return uResp, resp, nil
 }
 
+// GetImgURL fetches an URL for profileIcon
 func (s *SummonerService) GetImgURL(profileIcon int) string{
 	return fmt.Sprintf("%v/%v.png", s.client.ProfileIconURL.String(), profileIcon)
 }

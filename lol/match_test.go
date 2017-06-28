@@ -1,39 +1,39 @@
 package lol
 
 import (
-	"testing"
-	"net/http"
-	"fmt"
 	"context"
+	"fmt"
+	"net/http"
 	"reflect"
 	"strings"
+	"testing"
 )
 
 func TestMatch_marshall(t *testing.T) {
 	testJSONMarshal(t, &Match{}, "{}")
 
 	player := &Player{
-		CurrentPlatformId: String("World"),
+		CurrentPlatformID: String("World"),
 		SummonerName:      String("World"),
-		MatchHistoryUri:   String("World"),
-		PlatformId:        String("World"),
-		CurrentAccountId:  Int(3),
+		MatchHistoryURI:   String("World"),
+		PlatformID:        String("World"),
+		CurrentAccountID:  Int(3),
 		ProfileIcon:       Int(3),
-		SummonerId:        Int(3),
-		AccountId:         Int(3),
+		SummonerID:        Int(3),
+		AccountID:         Int(3),
 	}
 
 	participantIdentities := []ParticipantIdentity{
 		{
 			Player:        player,
-			ParticipantId: Int(3),
+			ParticipantID: Int(3),
 		},
 	}
 
 	teamBanses := []TeamBans{
 		{
 			PickTurn:   Int(1),
-			ChampionId: Int(3),
+			ChampionID: Int(3),
 		},
 	}
 
@@ -47,7 +47,7 @@ func TestMatch_marshall(t *testing.T) {
 			FirstBaron:           Bool(true),
 			RiftHeraldKills:      Int(1),
 			FirstBlood:           Bool(true),
-			TeamId:               Int(1),
+			TeamID:               Int(1),
 			FirstTower:           Bool(true),
 			VilemawKills:         Int(1),
 			InhibitorKills:       Int(1),
@@ -59,12 +59,12 @@ func TestMatch_marshall(t *testing.T) {
 	}
 
 	participantStats := &ParticipantStats{
-		PhysicalDamageDealt:             Int(1),
-		NeutralMinionsKilledTeamJungle:  Int(1),
-		MagicDamageDealt:                Int(1),
-		TotalPlayerScore:                Int(1),
-		Deaths:                          Int(1),
-		Win:                             Bool(true),
+		PhysicalDamageDealt:            Int(1),
+		NeutralMinionsKilledTeamJungle: Int(1),
+		MagicDamageDealt:               Int(1),
+		TotalPlayerScore:               Int(1),
+		Deaths:                         Int(1),
+		Win:                            Bool(true),
 		NeutralMinionsKilledEnemyJungle: Int(1),
 		AltarsCaptured:                  Int(1),
 		LargestCriticalStrike:           Int(1),
@@ -115,7 +115,7 @@ func TestMatch_marshall(t *testing.T) {
 		GoldSpent:                       Int(1),
 		TrueDamageDealt:                 Int(1),
 		TrueDamageDealtToChampions:      Int(1),
-		ParticipantId:                   Int(1),
+		ParticipantID:                   Int(1),
 		PentaKills:                      Int(1),
 		TotalHeal:                       Int(1),
 		TotalMinionsKilled:              Int(1),
@@ -133,42 +133,42 @@ func TestMatch_marshall(t *testing.T) {
 		PhysicalDamageTaken:             Int(1),
 	}
 
-	map_str_float := &map[string]float64{
+	mapStrFloat := &map[string]float64{
 		"value1": float64(1.1),
 		"value2": float64(1.2),
 	}
 
 	participantTimeline := &ParticipantTimeline{
-		Lane:                        String("World"),
-		ParticipantId:               Int(1),
-		CsDiffPerMinDeltas:          map_str_float,
-		GoldPerMinDeltas:            map_str_float,
-		XpDiffPerMinDeltas:          map_str_float,
-		CreepsPerMinDeltas:          map_str_float,
-		XpPerMinDeltas:              map_str_float,
-		Role:                        String("Wizard"),
-		DamageTakenDiffPerMinDeltas: map_str_float,
-		DamageTakenPerMinDeltas:     map_str_float,
+		Lane:               String("World"),
+		ParticipantID:      Int(1),
+		CsDiffPerMinDeltas: mapStrFloat,
+		GoldPerMinDeltas:   mapStrFloat,
+		XpDiffPerMinDeltas: mapStrFloat,
+		CreepsPerMinDeltas: mapStrFloat,
+		XpPerMinDeltas:     mapStrFloat,
+		Role:               String("Wizard"),
+		DamageTakenDiffPerMinDeltas: mapStrFloat,
+		DamageTakenPerMinDeltas:     mapStrFloat,
 	}
 
 	runes := []Rune{
 		{
-			RuneId: Int(12),
+			RuneID: Int(12),
 			Rank:   Int(321123),
 		},
 		{
-			RuneId: Int(13),
+			RuneID: Int(13),
 			Rank:   Int(111222),
 		},
 	}
 
 	masteries := []Mastery{
 		{
-			Id:   Int(12),
+			ID:   Int(12),
 			Rank: Int(321123),
 		},
 		{
-			Id:   Int(13),
+			ID:   Int(13),
 			Rank: Int(111222),
 		},
 	}
@@ -176,27 +176,27 @@ func TestMatch_marshall(t *testing.T) {
 	participants := []Participant{
 		{
 			Stats:                     participantStats,
-			ParticipantId:             Int(1),
+			ParticipantID:             Int(1),
 			Runes:                     runes,
 			Timeline:                  participantTimeline,
-			TeamId:                    Int(1),
-			Spell2Id:                  Int(1),
+			TeamID:                    Int(1),
+			Spell2ID:                  Int(1),
 			Masteries:                 masteries,
 			HighestAchievedSeasonTier: String("season"),
-			Spell1Id:                  Int(1),
-			ChampionId:                Int(1),
+			Spell1ID:                  Int(1),
+			ChampionID:                Int(1),
 		},
 	}
 
 	match := &Match{
-		SeasonId:              Int(1),
-		QueueId:               Int(1),
-		GameId:                Int(1),
+		SeasonID:              Int(1),
+		QueueID:               Int(1),
+		GameID:                Int(1),
 		ParticipantIdentities: participantIdentities,
 		GameVersion:           String("1.0"),
-		PlatformId:            String("1234"),
+		PlatformID:            String("1234"),
 		GameMode:              String("World"),
-		MapId:                 Int(2),
+		MapID:                 Int(2),
 		GameType:              String("World"),
 		Teams:                 teamStatses,
 		Participants:          participants,
@@ -403,9 +403,9 @@ func TestMatchList_marshall(t *testing.T) {
 	matchReferences := []MatchReference{
 		{
 			Lane:       String("World"),
-			GameId:     Int(3),
+			GameID:     Int(3),
 			Champion:   Int(3),
-			PlatformId: String("123456"),
+			PlatformID: String("123456"),
 			Season:     Int(3),
 			Queue:      Int(3),
 			Role:       String("World"),
@@ -455,9 +455,9 @@ func TestMatchTimeline_marshall(t *testing.T) {
 		{
 			EventType:               String("World"),
 			TowerType:               String("World"),
-			TeamId:                  Int(3),
+			TeamID:                  Int(3),
 			AscendedType:            String("World"),
-			KillerId:                Int(3),
+			KillerID:                Int(3),
 			LevelUpType:             String("World"),
 			PointCaptured:           String("World"),
 			AssistingParticipantIds: listInt,
@@ -465,21 +465,21 @@ func TestMatchTimeline_marshall(t *testing.T) {
 			MonsterType:             String("World"),
 			Type:                    String("World"),
 			SkillSlot:               Int(3),
-			VictimId:                Int(3),
+			VictimID:                Int(3),
 			Timestamp:               Int(3),
-			AfterId:                 Int(3),
+			AfterID:                 Int(3),
 			MonsterSubType:          String("World"),
 			LaneType:                String("World"),
-			ItemId:                  Int(3),
-			ParticipantId:           Int(3),
+			ItemID:                  Int(3),
+			ParticipantID:           Int(3),
 			BuildingType:            String("World"),
-			CreatorId:               Int(3),
+			CreatorID:               Int(3),
 			Position:                matchPosition,
-			BeforeId:                Int(3),
+			BeforeID:                Int(3),
 		},
 	}
 
-	map_int_MatchParticipantFrame := &map[int]MatchParticipantFrame{
+	mapIntMatchParticipantFrame := &map[int]MatchParticipantFrame{
 		2:  {},
 		11: {},
 	}
@@ -487,7 +487,7 @@ func TestMatchTimeline_marshall(t *testing.T) {
 	matchFrames := []MatchFrame{
 		{
 			Timestamp:         String("123456789"),
-			ParticipantFrames: map_int_MatchParticipantFrame,
+			ParticipantFrames: mapIntMatchParticipantFrame,
 			Events:            matchEvents,
 		},
 	}
@@ -550,23 +550,23 @@ func TestMatchTimeline_marshall(t *testing.T) {
 	testJSONMarshal(t, matchTimeline, want)
 }
 
-func TestMatchService_GetMatchesByMatchId(t *testing.T) {
+func TestMatchService_GetMatchesByMatchID(t *testing.T) {
 	setup()
 	defer teardown()
 
 	mux.HandleFunc("/"+client.MatchURL+"/matches/23231", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"seasonId":2}`)
+		fmt.Fprint(w, `{"seasonID":2}`)
 	})
 
-	match, _, err := client.Match.GetMatchesByMatchId(context.Background(), 23231)
+	match, _, err := client.Match.GetMatchesByMatchID(context.Background(), 23231)
 	if err != nil {
-		t.Errorf("Match.GetByMatchId returned error: %v", err)
+		t.Errorf("Match.GetByMatchID returned error: %v", err)
 	}
 
-	want := &Match{SeasonId: Int(2)}
+	want := &Match{SeasonID: Int(2)}
 	if !reflect.DeepEqual(match, want) {
-		t.Errorf("Match.GetByMatchId returned %+v, want %+v", match, want)
+		t.Errorf("Match.GetByMatchID returned %+v, want %+v", match, want)
 	}
 }
 
@@ -576,7 +576,7 @@ func TestMatchService_GetMatchesByTournamentCode(t *testing.T) {
 
 	mux.HandleFunc("/"+client.MatchURL+"/matches/by-tournament-code/1234", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"seasonId":2}`)
+		fmt.Fprint(w, `{"seasonID":2}`)
 	})
 
 	match, _, err := client.Match.GetMatchesByTournamentCode(context.Background(), "1234")
@@ -584,7 +584,7 @@ func TestMatchService_GetMatchesByTournamentCode(t *testing.T) {
 		t.Errorf("Match.GetMatchesByTournamentCode returned error: %v", err)
 	}
 
-	want := &Match{SeasonId: Int(2)}
+	want := &Match{SeasonID: Int(2)}
 	if !reflect.DeepEqual(match, want) {
 		t.Errorf("Match.GetMatchesByTournamentCode returned %+v, want %+v", match, want)
 	}
@@ -606,8 +606,8 @@ func TestMatchService_GetMatchIdsByTournamentCode(t *testing.T) {
 
 	match, _, err := client.Match.GetMatchIdsByTournamentCode(context.Background(), "1234")
 
-	err_str := fmt.Sprintf("%v", err)
-	if err != nil && !strings.Contains(err_str, "[]int") {
+	errStr := fmt.Sprintf("%v", err)
+	if err != nil && !strings.Contains(errStr, "[]int") {
 		t.Errorf("Match.GetMatchIdsByTournamentCode did not return type: %v", "[]int")
 		t.Errorf("Match.GetMatchIdsByTournamentCode returned error: %v", err)
 		t.Errorf("Match.GetMatchIdsByTournamentCode returned: %v", match)
@@ -619,7 +619,7 @@ func TestMatchService_Get_invalidMatchIdsByTournamentCode(t *testing.T) {
 	testURLParseError(t, err)
 }
 
-func TestMatchService_GetMatchListByAccountId(t *testing.T) {
+func TestMatchService_GetMatchListByAccountID(t *testing.T) {
 	setup()
 	defer teardown()
 
@@ -628,18 +628,18 @@ func TestMatchService_GetMatchListByAccountId(t *testing.T) {
 		fmt.Fprint(w, `{"totalGames":2}`)
 	})
 
-	match, _, err := client.Match.GetMatchListByAccountId(context.Background(), 1234)
+	match, _, err := client.Match.GetMatchListByAccountID(context.Background(), 1234)
 	if err != nil {
-		t.Errorf("Match.GetMatchListByAccountId returned error: %v", err)
+		t.Errorf("Match.GetMatchListByAccountID returned error: %v", err)
 	}
 
 	want := &MatchList{TotalGames: Int(2)}
 	if !reflect.DeepEqual(match, want) {
-		t.Errorf("Match.GetMatchListByAccountId returned %+v, want %+v", match, want)
+		t.Errorf("Match.GetMatchListByAccountID returned %+v, want %+v", match, want)
 	}
 }
 
-func TestMatchService_GetMatchListRecentByAccountId(t *testing.T) {
+func TestMatchService_GetMatchListRecentByAccountID(t *testing.T) {
 	setup()
 	defer teardown()
 
@@ -648,18 +648,18 @@ func TestMatchService_GetMatchListRecentByAccountId(t *testing.T) {
 		fmt.Fprint(w, `{"totalGames":2}`)
 	})
 
-	match, _, err := client.Match.GetMatchListRecentByAccountId(context.Background(), 1234)
+	match, _, err := client.Match.GetMatchListRecentByAccountID(context.Background(), 1234)
 	if err != nil {
-		t.Errorf("Match.GetMatchListRecentByAccountId returned error: %v", err)
+		t.Errorf("Match.GetMatchListRecentByAccountID returned error: %v", err)
 	}
 
 	want := &MatchList{TotalGames: Int(2)}
 	if !reflect.DeepEqual(match, want) {
-		t.Errorf("Match.GetMatchListRecentByAccountId returned %+v, want %+v", match, want)
+		t.Errorf("Match.GetMatchListRecentByAccountID returned %+v, want %+v", match, want)
 	}
 }
 
-func TestMatchService_GetTimelineByMatchId(t *testing.T) {
+func TestMatchService_GetTimelineByMatchID(t *testing.T) {
 	setup()
 	defer teardown()
 
@@ -668,13 +668,13 @@ func TestMatchService_GetTimelineByMatchId(t *testing.T) {
 		fmt.Fprint(w, `{"frameInterval":2}`)
 	})
 
-	match, _, err := client.Match.GetTimelineByMatchId(context.Background(), 1234)
+	match, _, err := client.Match.GetTimelineByMatchID(context.Background(), 1234)
 	if err != nil {
-		t.Errorf("Match.GetTimelineByMatchId returned error: %v", err)
+		t.Errorf("Match.GetTimelineByMatchID returned error: %v", err)
 	}
 
 	want := &MatchTimeline{FrameInterval: Int(2)}
 	if !reflect.DeepEqual(match, want) {
-		t.Errorf("Match.GetTimelineByMatchId returned %+v, want %+v", match, want)
+		t.Errorf("Match.GetTimelineByMatchID returned %+v, want %+v", match, want)
 	}
 }
