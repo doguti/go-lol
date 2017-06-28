@@ -6,13 +6,14 @@ import (
 	"reflect"
 	"testing"
 	"fmt"
+	"errors"
 )
 
 func TestSummoner_marshall(t *testing.T) {
 	testJSONMarshal(t, &Summoner{}, "{}")
 
 	s := &Summoner{
-		ProfileIconId: Int(3),
+		ProfileIconID: Int(3),
 		Name:          String("SummonerName"),
 		SummonerLevel: Int(323232),
 		RevisionDate:  Int(323232),
@@ -93,6 +94,16 @@ func TestSummonerService_GetByName(t *testing.T) {
 func TestSummonersService_Get_invalidSummonerName(t *testing.T) {
 	_, _, err := client.Summoners.GetByName(context.Background(), "%")
 	testURLParseError(t, err)
+}
+
+func TestSummonersService_Get_needSummonerName(t *testing.T) {
+	nameValue := ""
+	_, _, err := client.Summoners.GetByName(context.Background(), nameValue)
+	errorMessage := errors.New("Need to set a Summoner Name")
+
+	if !reflect.DeepEqual(err, errorMessage) {
+		t.Errorf("Summoners.GetByName with name=%+v returned %+v", nameValue, err)
+	}
 }
 
 func TestSummonerService_GetImgURL(t *testing.T) {

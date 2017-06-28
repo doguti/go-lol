@@ -13,12 +13,12 @@ func TestMasteries_marshall(t *testing.T) {
 
 	masteries := []Mastery{
 		{
-			Id: Int(12),
-			Rank:    Int(321123),
+			ID:   Int(12),
+			Rank: Int(321123),
 		},
 		{
-			Id: Int(13),
-			Rank:    Int(111222),
+			ID:   Int(13),
+			Rank: Int(111222),
 		},
 	}
 
@@ -26,14 +26,14 @@ func TestMasteries_marshall(t *testing.T) {
 		{
 			Current:   Bool(true),
 			Name:      String("@@!PaG3!@@98342842"),
-			Id:        Int(11),
+			ID:        Int(11),
 			Masteries: masteries,
 		},
 	}
 
 	m := &Masteries{
-		SummonerId:    Int(321321),
-		Pages: masteryPage,
+		SummonerID: Int(321321),
+		Pages:      masteryPage,
 	}
 
 	want := `{
@@ -54,22 +54,22 @@ func TestMasteries_marshall(t *testing.T) {
 	testJSONMarshal(t, m, want)
 }
 
-func TestMasteriesService_GetBySummonerId(t *testing.T) {
+func TestMasteriesService_GetBySummonerID(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/" + client.MasteriesURL+"/by-summoner/23231", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+client.MasteriesURL+"/by-summoner/23231", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `{"summonerId":23231}`)
 	})
 
-	summoner, _, err := client.Masteries.GetBySummonerId(context.Background(), 23231)
+	summoner, _, err := client.Masteries.GetBySummonerID(context.Background(), 23231)
 	if err != nil {
-		t.Errorf("Masteries.GetBySummonerId returned error: %v", err)
+		t.Errorf("Masteries.GetBySummonerID returned error: %v", err)
 	}
 
-	want := &Masteries{SummonerId: Int(23231)}
+	want := &Masteries{SummonerID: Int(23231)}
 	if !reflect.DeepEqual(summoner, want) {
-		t.Errorf("Masteries.GetBySummonerId returned %+v, want %+v", summoner, want)
+		t.Errorf("Masteries.GetBySummonerID returned %+v, want %+v", summoner, want)
 	}
 }

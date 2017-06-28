@@ -5,11 +5,12 @@ import (
 	"fmt"
 )
 
+// MasteriesService represents a service to interact with Masteries API.
 type MasteriesService service
 
 // Masteries represent a MasteryPagesDto.
 type Masteries struct {
-	SummonerId *int     `json:"summonerId,omitempty"`     // Summoner name.
+	SummonerID *int     `json:"summonerId,omitempty"`     // Summoner name.
 	Pages      []MasteryPage     `json:"pages,omitempty"` //Summoner name.
 }
 
@@ -22,7 +23,7 @@ type MasteryPage struct {
 	Current   *bool     `json:"current,omitempty"`   // Summoner name.
 	Masteries []Mastery     `json:"masteries,omitempty"` // Summoner name.
 	Name      *string     `json:"name,omitempty"`      // Summoner name.
-	Id        *int     `json:"id,omitempty"`        // Summoner name.
+	ID        *int     `json:"id,omitempty"`        // Summoner name.
 }
 
 func (t MasteryPage) String() string {
@@ -31,8 +32,8 @@ func (t MasteryPage) String() string {
 
 // Mastery represent a MasteryDto.
 type Mastery struct {
-	MasteryId   *int     `json:"masteryId,omitempty"`
-	Id   *int     `json:"id,omitempty"`   // Summoner name.
+	MasteryID   *int     `json:"masteryId,omitempty"`
+	ID   *int     `json:"id,omitempty"`   // Summoner name.
 	Rank *int     `json:"rank,omitempty"` //Summoner name.
 }
 
@@ -40,12 +41,10 @@ func (t Mastery) String() string {
 	return Stringify(t)
 }
 
-func (s *MasteriesService) GetBySummonerId(ctx context.Context, id int) (*Masteries, *Response, error) {
+// GetBySummonerID fetches mastery pages for a given summoner ID
+func (s *MasteriesService) GetBySummonerID(ctx context.Context, id int) (*Masteries, *Response, error) {
 	c := fmt.Sprintf("%v/by-summoner/%v", s.client.MasteriesURL, id)
-	return getMasteries(s, ctx, c)
-}
 
-func getMasteries(s *MasteriesService, ctx context.Context, c string) (*Masteries, *Response, error){
 	req, err := s.client.NewRequest("GET", c, nil)
 	if err != nil {
 		return nil, nil, err

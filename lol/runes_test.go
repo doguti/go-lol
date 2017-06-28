@@ -13,8 +13,8 @@ func TestRunePages_String(t *testing.T) {
 
 	runeSlots := []RuneSlot{
 		{
-			RuneSlotId: Int(1202),
-			RuneId:     Int(1222),
+			RuneSlotID: Int(1202),
+			RuneID:     Int(1222),
 		},
 	}
 
@@ -23,13 +23,13 @@ func TestRunePages_String(t *testing.T) {
 			Current: Bool(true),
 			Slots:   runeSlots,
 			Name:    String("Name"),
-			Id:      Int(123),
+			ID:      Int(123),
 		},
 	}
 
 	runePages := &RunePages{
 		Pages:      runePageList,
-		SummonerId: Int(1232),
+		SummonerID: Int(1232),
 	}
 
 	want := `{
@@ -51,27 +51,27 @@ func TestRunePages_String(t *testing.T) {
 	testJSONMarshal(t, runePages, want)
 }
 
-func TestRunesService_GetRunePagesBySummonerId(t *testing.T) {
+func TestRunesService_GetRunePagesBySummonerID(t *testing.T) {
 	setup()
 	defer teardown()
 
 	mux.HandleFunc("/"+client.RunesURL+"/by-summoner/12", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, `{"summonerId":12}`)
+		fmt.Fprint(w, `{"summonerID":12}`)
 	})
 
-	runes, _, err := client.Runes.GetRunePagesBySummonerId(context.Background(), "12")
+	runes, _, err := client.Runes.GetRunePagesBySummonerID(context.Background(), "12")
 	if err != nil {
-		t.Errorf("Runes.GetRunePagesBySummonerId returned error: %v", err)
+		t.Errorf("Runes.GetRunePagesBySummonerID returned error: %v", err)
 	}
 
-	want := &RunePages{SummonerId: Int(12)}
+	want := &RunePages{SummonerID: Int(12)}
 	if !reflect.DeepEqual(runes, want) {
-		t.Errorf("Runes.GetRunePagesBySummonerId returned %+v, want %+v", runes, want)
+		t.Errorf("Runes.GetRunePagesBySummonerID returned %+v, want %+v", runes, want)
 	}
 }
 
-func TestRunesService_Get_invalidRunePagesBySummonerId(t *testing.T) {
-	_, _, err := client.Runes.GetRunePagesBySummonerId(context.Background(), "%")
+func TestRunesService_Get_invalidRunePagesBySummonerID(t *testing.T) {
+	_, _, err := client.Runes.GetRunePagesBySummonerID(context.Background(), "%")
 	testURLParseError(t, err)
 }

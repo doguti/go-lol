@@ -71,42 +71,41 @@ type service struct {
 // provided, http.DefaultClient will be used. To use API methods which require
 // authentication, provide an http.Client that will perform the authentication
 // for you (such as that provided by the golang.org/x/oauth2 library).
-
-func NewClient(httpClient *http.Client, key string, reg string, lol_v string, static_v string, loc_lg string) *Client {
+func NewClient(httpClient *http.Client, key string, reg string, lolV string, staticV string, locLg string) *Client {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
 	}
 	if reg == "" {
 		reg = region
 	}
-	if lol_v == "" {
-		lol_v = versionLOLURL
+	if lolV == "" {
+		lolV = versionLOLURL
 	}
-	if static_v == "" {
-		static_v = versionIMG
+	if staticV == "" {
+		staticV = versionIMG
 	}
-	if loc_lg == "" {
-		loc_lg = locale
+	if locLg == "" {
+		locLg = locale
 	}
 	if reg == "" {
 		reg = region
 	}
 	baseURL, _ := url.Parse("https://" + reg + ".api.riotgames.com/lol/")
-	profileIconURL, _ := url.Parse("http://ddragon.leagueoflegends.com/cdn/" + static_v + "/img/")
+	profileIconURL, _ := url.Parse("http://ddragon.leagueoflegends.com/cdn/" + staticV + "/img/")
 	c := &Client{
 		client:             httpClient,
 		BaseURL:            baseURL,
 		ProfileIconURL:     profileIconURL,
 		UserAgent:          userAgent,
-		ChampionURL:        "platform/v" + lol_v + "/champions",
-		ChampionMasteryURL: "champion-mastery/v" + lol_v,
-		LeagueURL:          "league/v" + lol_v,
-		MasteriesURL:       "platform/v" + lol_v + "/masteries",
-		MatchURL:           "match/v" + lol_v,
-		RunesURL:           "platform/v" + lol_v + "/runes",
-		StaticDataURL:      "static-data/v" + lol_v + "/",
-		SummonerURL:        "summoner/v" + lol_v + "/summoners",
-		Locale:             loc_lg,
+		ChampionURL:        "platform/v" + lolV + "/champions",
+		ChampionMasteryURL: "champion-mastery/v" + lolV,
+		LeagueURL:          "league/v" + lolV,
+		MasteriesURL:       "platform/v" + lolV + "/masteries",
+		MatchURL:           "match/v" + lolV,
+		RunesURL:           "platform/v" + lolV + "/runes",
+		StaticDataURL:      "static-data/v" + lolV + "/",
+		SummonerURL:        "summoner/v" + lolV + "/summoners",
+		Locale:             locLg,
 		Region:             reg,
 	}
 	c.common.client = c
@@ -124,9 +123,8 @@ func NewClient(httpClient *http.Client, key string, reg string, lol_v string, st
 func addParamQuery(url string, param string, value string) string {
 	if strings.ContainsAny(url, "?") {
 		return fmt.Sprintf("%v&%s=%s", url, param, value)
-	} else {
-		return fmt.Sprintf("%v?%s=%s", url, param, value)
 	}
+	return fmt.Sprintf("%v?%s=%s", url, param, value)
 }
 
 // NewRequest creates an API request. A relative URL can be provided in urlStr,
@@ -178,6 +176,7 @@ func newResponse(r *http.Response) *Response {
 	return response
 }
 
+// ErrorResponse create a message of error by HTTP response
 type ErrorResponse struct {
 	Response *http.Response                  // HTTP response that caused this error
 	Message  string         `json:"message"` // error message
@@ -204,6 +203,7 @@ func (r *ErrorResponse) Error() string {
 504	Gateway timeout
 */
 
+// CheckResponse return the error
 func CheckResponse(r *http.Response) error {
 	if c := r.StatusCode; 200 <= c && c <= 299 {
 		return nil
@@ -215,6 +215,7 @@ func CheckResponse(r *http.Response) error {
 	}
 }
 
+// Do realize HTTP request
 func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
 	req = req.WithContext(ctx)
 

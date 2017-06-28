@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-// ChampionMasteryService represents a service to interact data with ChampionMastery API.
+// ChampionMasteryService represents a service to interact with ChampionMastery API.
 type ChampionMasteryService service
 
 // ChampionMastery represent a ChampionMasteryDTO.

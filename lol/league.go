@@ -5,6 +5,7 @@ import (
 	"fmt"
 )
 
+// LeagueService represents a service to interact with League API.
 type LeagueService service
 
 // LeagueList represent a LeagueListDTO.
@@ -27,7 +28,7 @@ type LeagueItem struct {
 	Wins             *int     `json:"wins,omitempty"`
 	Veteran          *bool     `json:"veteran,omitempty"`
 	Losses           *int     `json:"losses,omitempty"`
-	PlayerOrTeamId   *string     `json:"playerOrTeamId,omitempty"`
+	PlayerOrTeamID   *string     `json:"playerOrTeamId,omitempty"`
 	PlayerOrTeamName *string     `json:"playerOrTeamName,omitempty"`
 	Inactive         *bool     `json:"inactive,omitempty"`
 	FreshBlood       *bool     `json:"freshBlood,omitempty"`
@@ -59,7 +60,7 @@ type LeaguePosition struct {
 	Wins             *int     `json:"wins,omitempty"`
 	Veteran          *bool     `json:"veteran,omitempty"`
 	Losses           *int     `json:"losses,omitempty"`
-	PlayerOrTeamId   *string     `json:"playerOrTeamId,omitempty"`
+	PlayerOrTeamID   *string     `json:"playerOrTeamId,omitempty"`
 	LeagueName       *string     `json:"leagueName,omitempty"`
 	PlayerOrTeamName *string     `json:"playerOrTeamName,omitempty"`
 	Inactive         *bool     `json:"inactive,omitempty"`
@@ -72,8 +73,9 @@ func (t LeaguePosition) String() string {
 	return Stringify(t)
 }
 
-func (s *LeagueService) GetChallengerLeaguesByQueue(ctx context.Context, queue_string string) (*LeagueList, *Response, error) {
-	c := fmt.Sprintf("%v/challengerleagues/by-queue/%v", s.client.LeagueURL, queue_string)
+// GetChallengerLeaguesByQueue fetches the challenger league for a given queue.
+func (s *LeagueService) GetChallengerLeaguesByQueue(ctx context.Context, queueString string) (*LeagueList, *Response, error) {
+	c := fmt.Sprintf("%v/challengerleagues/by-queue/%v", s.client.LeagueURL, queueString)
 
 	req, err := s.client.NewRequest("GET", c, nil)
 	if err != nil {
@@ -89,6 +91,7 @@ func (s *LeagueService) GetChallengerLeaguesByQueue(ctx context.Context, queue_s
 	return uResp, resp, nil
 }
 
+// GetLeaguesBySummoner fetches a collection of leagues in all queues for a given summoner ID
 func (s *LeagueService) GetLeaguesBySummoner(ctx context.Context, id int) ([]*LeagueList, *Response, error) {
 	c := fmt.Sprintf("%v/leagues/by-summoner/%v", s.client.LeagueURL, id)
 
@@ -106,6 +109,7 @@ func (s *LeagueService) GetLeaguesBySummoner(ctx context.Context, id int) ([]*Le
 	return leagues, resp, nil
 }
 
+// GetMasterLeaguesByQueue fetches the master league for a given queue
 func (s *LeagueService) GetMasterLeaguesByQueue(ctx context.Context, queue string) (*LeagueList, *Response, error) {
 	c := fmt.Sprintf("%v/masterleagues/by-queue/%v", s.client.LeagueURL, queue)
 
@@ -123,6 +127,7 @@ func (s *LeagueService) GetMasterLeaguesByQueue(ctx context.Context, queue strin
 	return uResp, resp, nil
 }
 
+// GetPositionsBySummoner fetches a collection of league positions in all queues for a given summoner ID
 func (s *LeagueService) GetPositionsBySummoner(ctx context.Context, id int) ([]*LeaguePosition, *Response, error) {
 	c := fmt.Sprintf("%v/positions/by-summoner/%v", s.client.LeagueURL, id)
 
