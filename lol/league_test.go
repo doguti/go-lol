@@ -12,32 +12,32 @@ func TestLeague_marshall_LeagueList(t *testing.T) {
 	testJSONMarshal(t, &LeagueList{}, "{}")
 
 	miniSeries := &MiniSeries{
-		Wins: Int(1),
-		Losses: Int(1),
-		Target: Int(1),
+		Wins:     Int(1),
+		Losses:   Int(1),
+		Target:   Int(1),
 		Progress: String("playing"),
 	}
 
 	leagueItem := []LeagueItem{
 		{
-			Rank: String("playing"),
-			HotStreak: Bool(true),
-			MiniSeries: miniSeries,
-			Wins: Int(1),
-			Veteran: Bool(true),
-			Losses: Int(1),
-			PlayerOrTeamId: String("playing"),
+			Rank:             String("playing"),
+			HotStreak:        Bool(true),
+			MiniSeries:       miniSeries,
+			Wins:             Int(1),
+			Veteran:          Bool(true),
+			Losses:           Int(1),
+			PlayerOrTeamId:   String("playing"),
 			PlayerOrTeamName: String("playing"),
-			Inactive: Bool(true),
-			FreshBlood: Bool(true),
-			LeaguePoints: Int(1),
+			Inactive:         Bool(true),
+			FreshBlood:       Bool(true),
+			LeaguePoints:     Int(1),
 		},
 	}
 
 	l := &LeagueList{
-		Tier: String("playing"),
-		Queue: String("playing"),
-		Name: String("playing"),
+		Tier:    String("playing"),
+		Queue:   String("playing"),
+		Name:    String("playing"),
 		Entries: leagueItem,
 	}
 
@@ -74,27 +74,27 @@ func TestLeague_marshall_LeaguePosition(t *testing.T) {
 	testJSONMarshal(t, &LeaguePosition{}, "{}")
 
 	miniSeries := &MiniSeries{
-		Wins: Int(1),
-		Losses: Int(1),
-		Target: Int(1),
+		Wins:     Int(1),
+		Losses:   Int(1),
+		Target:   Int(1),
 		Progress: String("playing"),
 	}
 
 	l := &LeaguePosition{
-		Rank: String("playing"),
-		QueueType: String("playing"),
-		HotStreak: Bool(true),
-		MiniSeries: miniSeries,
-		Wins: Int(1),
-		Veteran: Bool(true),
-		Losses: Int(1),
-		PlayerOrTeamId: String("playing"),
-		LeagueName: String("playing"),
+		Rank:             String("playing"),
+		QueueType:        String("playing"),
+		HotStreak:        Bool(true),
+		MiniSeries:       miniSeries,
+		Wins:             Int(1),
+		Veteran:          Bool(true),
+		Losses:           Int(1),
+		PlayerOrTeamId:   String("playing"),
+		LeagueName:       String("playing"),
 		PlayerOrTeamName: String("playing"),
-		Inactive: Bool(true),
-		FreshBlood: Bool(true),
-		Tier: String("playing"),
-		LeaguePoints: Int(1),
+		Inactive:         Bool(true),
+		FreshBlood:       Bool(true),
+		Tier:             String("playing"),
+		LeaguePoints:     Int(1),
 	}
 
 	want := `{
@@ -126,7 +126,7 @@ func TestLeagueService_GetChallengerLeaguesByQueue(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/" + client.LeagueURL +"/challengerleagues/by-queue/RANKED_SOLO_5x5", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+client.LeagueURL+"/challengerleagues/by-queue/RANKED_SOLO_5x5", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `{"tier":"CHALLENGER"}`)
 	})
@@ -151,7 +151,7 @@ func TestLeagueService_GetLeaguesBySummoner(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/"+client.LeagueURL +"/leagues/by-summoner/112121", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+client.LeagueURL+"/leagues/by-summoner/112121", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `[{"tier": "CHALLENGER"},{"tier": "CHALLENGER"}]`)
 	})
@@ -161,7 +161,7 @@ func TestLeagueService_GetLeaguesBySummoner(t *testing.T) {
 		t.Errorf("Leagues.GetLeaguesBySummoner returned error: %v", err)
 	}
 
-	want := []*LeagueList{{Tier: String("CHALLENGER")},{Tier: String("CHALLENGER")}}
+	want := []*LeagueList{{Tier: String("CHALLENGER")}, {Tier: String("CHALLENGER")}}
 	if !reflect.DeepEqual(leagues, want) {
 		t.Errorf("Leagues.GetLeaguesBySummoner returned %+v, want %+v", leagues, want)
 	}
@@ -171,7 +171,7 @@ func TestLeagueService_GetMasterLeaguesByQueue(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/" + client.LeagueURL +"/masterleagues/by-queue/RANKED_SOLO_5x5", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+client.LeagueURL+"/masterleagues/by-queue/RANKED_SOLO_5x5", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `{"tier":"CHALLENGER"}`)
 	})
@@ -196,7 +196,7 @@ func TestLeagueService_GetPositionsBySummoner(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/"+client.LeagueURL +"/positions/by-summoner/112121", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+client.LeagueURL+"/positions/by-summoner/112121", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `[{"tier": "CHALLENGER"},{"tier": "CHALLENGER"}]`)
 	})
@@ -206,7 +206,7 @@ func TestLeagueService_GetPositionsBySummoner(t *testing.T) {
 		t.Errorf("Leagues.GetPositionsBySummoner returned error: %v", err)
 	}
 
-	want := []*LeaguePosition{{Tier: String("CHALLENGER")},{Tier: String("CHALLENGER")}}
+	want := []*LeaguePosition{{Tier: String("CHALLENGER")}, {Tier: String("CHALLENGER")}}
 	if !reflect.DeepEqual(leagues, want) {
 		t.Errorf("Leagues.GetPositionsBySummoner returned %+v, want %+v", leagues, want)
 	}

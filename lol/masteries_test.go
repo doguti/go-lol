@@ -24,9 +24,9 @@ func TestMasteries_marshall(t *testing.T) {
 
 	masteryPage := []MasteryPage{
 		{
-			Current: Bool(true),
-			Name: String("@@!PaG3!@@98342842"),
-			Id: Int(11),
+			Current:   Bool(true),
+			Name:      String("@@!PaG3!@@98342842"),
+			Id:        Int(11),
 			Masteries: masteries,
 		},
 	}

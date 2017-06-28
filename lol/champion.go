@@ -5,15 +5,21 @@ import (
 	"fmt"
 )
 
+// ChampionService represents a service to interact with Champion API.
 type ChampionService service
 
+// Champion represent a ChampionDto.
 type Champion struct {
-	RankedPlayEnabled *bool     `json:"rankedPlayEnabled,omitempty"` // Ranked play enabled flag.
-	BotEnabled        *bool     `json:"botEnabled,omitempty"`        // Bot enabled flag (for custom games).
-	BotMmEnabled      *bool     `json:"botMmEnabled,omitempty"`      // Bot Match Made enabled flag (for Co-op vs. AI games).
-	Active            *bool     `json:"active,omitempty"`            // Indicates if the champion is active.
-	FreeToPlay        *bool     `json:"freeToPlay,omitempty"`        // Indicates if the champion is free to play. Free to play champions are rotated periodically.
-	ID                *int      `json:"id,omitempty"`                // Champion ID.
+	RankedPlayEnabled *bool `json:"rankedPlayEnabled,omitempty"` // Ranked play enabled flag.
+	BotEnabled        *bool `json:"botEnabled,omitempty"`        // Bot enabled flag (for custom games).
+	BotMmEnabled      *bool `json:"botMmEnabled,omitempty"`      // Bot Match Made enabled flag (for Co-op vs. AI games).
+	Active            *bool `json:"active,omitempty"`            // Indicates if the champion is active.
+	FreeToPlay        *bool `json:"freeToPlay,omitempty"`        // Indicates if the champion is free to play. Free to play champions are rotated periodically.
+	ID                *int  `json:"id,omitempty"`                // Champion ID.
+}
+
+func (t Champion) String() string {
+	return Stringify(t)
 }
 
 // Get fetches a Champion. Passing the empty string will fetch the authenticated
@@ -21,7 +27,6 @@ type Champion struct {
 // Methods
 //  Id
 // By Default will be a champion information.
-
 func (s *ChampionService) Get(ctx context.Context, id int) (*Champion, *Response, error) {
 	c := fmt.Sprintf("%v/%v", s.client.ChampionURL, id)
 

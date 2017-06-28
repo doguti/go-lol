@@ -76,6 +76,8 @@ func TestString(t *testing.T) {
 		in  interface{}
 		out string
 	}{
+		{Champion{ID: Int(1)}, `lol.Champion{ID:1}`},
+		{ChampionMastery{ChampionID: Int(1)}, `lol.ChampionMastery{ChampionID:1}`},
 		{LeagueItem{Rank: String("n")}, `lol.LeagueItem{Rank:"n"}`},
 		{LeagueList{Name: String("n")}, `lol.LeagueList{Name:"n"}`},
 		{LeaguePosition{Rank: String("n")}, `lol.LeaguePosition{Rank:"n"}`},
@@ -87,6 +89,8 @@ func TestString(t *testing.T) {
 		{MatchPosition{X: Int(1)}, `lol.MatchPosition{X:1}`},
 		{MatchReference{GameId: Int(1)}, `lol.MatchReference{GameId:1}`},
 		{MatchTimeline{FrameInterval: Int(1)}, `lol.MatchTimeline{FrameInterval:1}`},
+		{Masteries{SummonerId: Int(1)}, `lol.Masteries{SummonerId:1}`},
+		{Mastery{MasteryId: Int(1)}, `lol.Mastery{MasteryId:1}`},
 		{MasteryPage{Name: String("n")}, `lol.MasteryPage{Name:"n"}`},
 		{MiniSeries{Progress: String("n")}, `lol.MiniSeries{Progress:"n"}`},
 		{Player{SummonerId: Int(1)}, `lol.Player{SummonerId:1}`},
@@ -98,6 +102,7 @@ func TestString(t *testing.T) {
 		{RunePage{Id: Int(1)}, `lol.RunePage{Id:1}`},
 		{RunePages{SummonerId: Int(1)}, `lol.RunePages{SummonerId:1}`},
 		{RuneSlot{RuneId: Int(1)}, `lol.RuneSlot{RuneId:1}`},
+		{Summoner{AccountID: Int(1)}, `lol.Summoner{AccountID:1}`},
 		{TeamBans{ChampionId: Int(1)}, `lol.TeamBans{ChampionId:1}`},
 		{TeamStats{TeamId: Int(1)}, `lol.TeamStats{TeamId:1}`},
 	}
