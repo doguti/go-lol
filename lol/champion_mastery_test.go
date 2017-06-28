@@ -15,8 +15,8 @@ func TestChampionMastery_marshall(t *testing.T) {
 		ChestGranted:                 Bool(true),
 		ChampionLevel:                Int(1202),
 		ChampionPoints:               Int(1202),
-		ChampionId:                   Int(1202),
-		PlayerId:                     Int(1202),
+		ChampionID:                   Int(1202),
+		PlayerID:                     Int(1202),
 		ChampionPointsUntilNextLevel: Int(1202),
 		ChampionPointsSinceLastLevel: Int(1202),
 		LastPlayTime:                 Int(1202),
@@ -49,7 +49,7 @@ func TestChampionMasteryService_Get(t *testing.T) {
 		t.Errorf("ChampionMasteries.Get returned error: %v", err)
 	}
 
-	want := &ChampionMastery{ChampionId: Int(12)}
+	want := &ChampionMastery{ChampionID: Int(12)}
 	if !reflect.DeepEqual(championMastery, want) {
 		t.Errorf("ChampionMasteries.Get returned %+v, want %+v", championMastery, want)
 	}
@@ -69,7 +69,7 @@ func TestChampionMasteryService_GetAll(t *testing.T) {
 		t.Errorf("ChampionMasteries.GetAll returned error: %v", err)
 	}
 
-	want := []*ChampionMastery{{ChampionId: Int(12)},{ChampionId: Int(13)}}
+	want := []*ChampionMastery{{ChampionID: Int(12)},{ChampionID: Int(13)}}
 	if !reflect.DeepEqual(championMasteries, want) {
 		t.Errorf("ChampionMasteries.GetAll returned %+v, want %+v", championMasteries, want)
 	}

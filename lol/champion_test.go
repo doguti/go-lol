@@ -44,7 +44,7 @@ func TestChampionService_GetAll(t *testing.T) {
 		t.Errorf("Champion.GetAll returned error: %v", err)
 	}
 
-	want := []*Champion{{ID: Int(12)},{ID: Int(13)}}
+	want := []*Champion{{ID: Int(12)}, {ID: Int(13)}}
 	if !reflect.DeepEqual(champions, want) {
 		t.Errorf("Champion.GetAll returned %+v, want %+v", champions, want)
 	}

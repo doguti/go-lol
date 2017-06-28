@@ -1,6 +1,6 @@
 package lol
 
-import(
+import (
 	"net/url"
 	"net/http"
 	"sync"
@@ -30,7 +30,7 @@ type Client struct {
 	// Base URL for API requests. Defaults to the public LOL API, but can be
 	// set to a domain endpoint to use with LOL RIOT. BaseURL should
 	// always be specified with a trailing slash.
-	BaseURL *url.URL
+	BaseURL        *url.URL
 	ProfileIconURL *url.URL
 
 	// User agent used when communicating with the LOL API.
@@ -42,24 +42,25 @@ type Client struct {
 	//language
 	Region string
 	Locale string
+
 	// Services used for talking to different parts of the LOL API.
-	ChampionMasteries  *ChampionMasteryService
-	Champions          *ChampionService
-	Masteries          *MasteriesService
-	Match              *MatchService
-	Summoners          *SummonerService
-	Runes              *RunesService
-	Leagues            *LeagueService
+	Champions         *ChampionService
+	ChampionMasteries *ChampionMasteryService
+	Leagues           *LeagueService
+	Masteries         *MasteriesService
+	Match             *MatchService
+	Runes             *RunesService
+	Summoners         *SummonerService
 
 	//EndPoints
+	ChampionURL        string
 	ChampionMasteryURL string
+	LeagueURL          string
 	MasteriesURL       string
-	MatchURL      string
-	SummonerURL   string
-	ChampionURL   string
-	StaticDataURL string
-	RunesURL      string
-	LeagueURL string
+	MatchURL           string
+	RunesURL           string
+	StaticDataURL      string
+	SummonerURL        string
 }
 
 type service struct {
@@ -75,7 +76,7 @@ func NewClient(httpClient *http.Client, key string, reg string, lol_v string, st
 	if httpClient == nil {
 		httpClient = http.DefaultClient
 	}
-	if reg == ""{
+	if reg == "" {
 		reg = region
 	}
 	if lol_v == "" {
@@ -84,46 +85,46 @@ func NewClient(httpClient *http.Client, key string, reg string, lol_v string, st
 	if static_v == "" {
 		static_v = versionIMG
 	}
-	if loc_lg == ""{
+	if loc_lg == "" {
 		loc_lg = locale
 	}
-	if reg == ""{
+	if reg == "" {
 		reg = region
 	}
-	baseURL, _ := url.Parse("https://"+ reg +".api.riotgames.com/lol/")
-	profileIconURL, _ := url.Parse("http://ddragon.leagueoflegends.com/cdn/"+ static_v +"/img/")
+	baseURL, _ := url.Parse("https://" + reg + ".api.riotgames.com/lol/")
+	profileIconURL, _ := url.Parse("http://ddragon.leagueoflegends.com/cdn/" + static_v + "/img/")
 	c := &Client{
-		client: httpClient,
-		BaseURL: baseURL,
-		ProfileIconURL: profileIconURL,
-		UserAgent: userAgent,
+		client:             httpClient,
+		BaseURL:            baseURL,
+		ProfileIconURL:     profileIconURL,
+		UserAgent:          userAgent,
+		ChampionURL:        "platform/v" + lol_v + "/champions",
 		ChampionMasteryURL: "champion-mastery/v" + lol_v,
-		MasteriesURL: "platform/v"+ lol_v +"/masteries",
-		SummonerURL: "summoner/v"+ lol_v +"/summoners",
-		ChampionURL: "platform/v"+ lol_v +"/champions",
-		RunesURL: "platform/v"+ lol_v +"/runes",
-		StaticDataURL: "static-data/v"+ lol_v +"/",
-		MatchURL: "match/v"+ lol_v,
-		LeagueURL: "league/v" + lol_v,
-		Locale: loc_lg,
-		Region: reg,
+		LeagueURL:          "league/v" + lol_v,
+		MasteriesURL:       "platform/v" + lol_v + "/masteries",
+		MatchURL:           "match/v" + lol_v,
+		RunesURL:           "platform/v" + lol_v + "/runes",
+		StaticDataURL:      "static-data/v" + lol_v + "/",
+		SummonerURL:        "summoner/v" + lol_v + "/summoners",
+		Locale:             loc_lg,
+		Region:             reg,
 	}
 	c.common.client = c
 	c.keyLol = key
-	c.ChampionMasteries = (*ChampionMasteryService)(&c.common)
 	c.Champions = (*ChampionService)(&c.common)
+	c.ChampionMasteries = (*ChampionMasteryService)(&c.common)
+	c.Leagues = (*LeagueService)(&c.common)
 	c.Masteries = (*MasteriesService)(&c.common)
 	c.Match = (*MatchService)(&c.common)
-	c.Summoners = (*SummonerService)(&c.common)
-	c.Leagues = (*LeagueService)(&c.common)
 	c.Runes = (*RunesService)(&c.common)
+	c.Summoners = (*SummonerService)(&c.common)
 	return c
 }
 
-func addParamQuery(url string, param string, value string) string{
-	if strings.ContainsAny(url, "?"){
+func addParamQuery(url string, param string, value string) string {
+	if strings.ContainsAny(url, "?") {
 		return fmt.Sprintf("%v&%s=%s", url, param, value)
-	}else{
+	} else {
 		return fmt.Sprintf("%v?%s=%s", url, param, value)
 	}
 }
@@ -178,7 +179,7 @@ func newResponse(r *http.Response) *Response {
 }
 
 type ErrorResponse struct {
-	Response *http.Response // HTTP response that caused this error
+	Response *http.Response                  // HTTP response that caused this error
 	Message  string         `json:"message"` // error message
 }
 

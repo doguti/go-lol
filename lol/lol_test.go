@@ -1,6 +1,5 @@
 package lol
 
-
 import (
 	"net/http"
 	"context"
@@ -32,7 +31,7 @@ func setup() {
 	server = httptest.NewServer(mux)
 
 	// github client configured to use test server
-	client = NewClient(nil,"<api_key>", "", "", "", "")
+	client = NewClient(nil, "<api_key>", "", "", "", "")
 	url, _ := url.Parse(server.URL)
 	client.BaseURL = url
 }
@@ -88,7 +87,7 @@ func testBody(t *testing.T, r *http.Request, want string) {
 }
 
 func TestNewClient(t *testing.T) {
-	c := NewClient(nil, "<api_key>","", "", "", "")
+	c := NewClient(nil, "<api_key>", "", "", "", "")
 
 	if got, want := c.BaseURL.String(), c.BaseURL.String(); got != want {
 		t.Errorf("NewClient BaseURL is %v, want %v", got, want)
@@ -96,32 +95,32 @@ func TestNewClient(t *testing.T) {
 	if got, want := c.UserAgent, userAgent; got != want {
 		t.Errorf("NewClient UserAgent is %v, want %v", got, want)
 	}
-	if got, want := c.ProfileIconURL.String(), "http://ddragon.leagueoflegends.com/cdn/"+ versionIMG +"/img/"; got != want {
+	if got, want := c.ProfileIconURL.String(), "http://ddragon.leagueoflegends.com/cdn/"+versionIMG+"/img/"; got != want {
 		t.Errorf("NewClient ProfileIconURL is %v, want %v", got, want)
 	}
-	if got, want := c.ChampionMasteryURL, "champion-mastery/v" + versionLOLURL; got != want {
-		t.Errorf("NewClient ChampionMasteryURL is %v, want %v", got, want)
-	}
-	if got, want := c.ChampionURL, "platform/v"+ versionLOLURL +"/champions"; got != want {
+	if got, want := c.ChampionURL, "platform/v"+versionLOLURL+"/champions"; got != want {
 		t.Errorf("NewClient ChampionURL is %v, want %v", got, want)
 	}
-	if got, want := c.LeagueURL, "league/v"+ versionLOLURL; got != want {
+	if got, want := c.ChampionMasteryURL, "champion-mastery/v"+versionLOLURL; got != want {
+		t.Errorf("NewClient ChampionMasteryURL is %v, want %v", got, want)
+	}
+	if got, want := c.LeagueURL, "league/v"+versionLOLURL; got != want {
 		t.Errorf("NewClient LeagueURL is %v, want %v", got, want)
 	}
-	if got, want := c.RunesURL, "platform/v"+ versionLOLURL +"/runes"; got != want {
-		t.Errorf("NewClient RunesURL is %v, want %v", got, want)
-	}
-	if got, want := c.MasteriesURL, "platform/v"+ versionLOLURL +"/masteries"; got != want {
+	if got, want := c.MasteriesURL, "platform/v"+versionLOLURL+"/masteries"; got != want {
 		t.Errorf("NewClient MasteriesURL is %v, want %v", got, want)
 	}
-	if got, want := c.MatchURL, "match/v"+ versionLOLURL; got != want {
+	if got, want := c.MatchURL, "match/v"+versionLOLURL; got != want {
 		t.Errorf("NewClient MatchURL is %v, want %v", got, want)
 	}
-	if got, want := c.SummonerURL, "summoner/v"+ versionLOLURL +"/summoners"; got != want {
-		t.Errorf("NewClient SummonerURL is %v, want %v", got, want)
+	if got, want := c.RunesURL, "platform/v"+versionLOLURL+"/runes"; got != want {
+		t.Errorf("NewClient RunesURL is %v, want %v", got, want)
 	}
-	if got, want := c.StaticDataURL, "static-data/v"+ versionLOLURL +"/"; got != want {
+	if got, want := c.StaticDataURL, "static-data/v"+versionLOLURL+"/"; got != want {
 		t.Errorf("NewClient StaticDataURL is %v, want %v", got, want)
+	}
+	if got, want := c.SummonerURL, "summoner/v"+versionLOLURL+"/summoners"; got != want {
+		t.Errorf("NewClient SummonerURL is %v, want %v", got, want)
 	}
 	if got, want := c.keyLol, "<api_key>"; got != want {
 		t.Errorf("NewClient SummonerURL is %v, want %v", got, want)
@@ -135,7 +134,7 @@ func TestNewClient(t *testing.T) {
 }
 
 func TestNewClientWithVersionParams(t *testing.T) {
-	c := NewClient(nil, "<api_key>","aa", "1", "2", "EN")
+	c := NewClient(nil, "<api_key>", "aa", "1", "2", "EN")
 
 	if got, want := c.BaseURL.String(), c.BaseURL.String(); got != want {
 		t.Errorf("NewClient BaseURL is %v, want %v", got, want)
@@ -146,17 +145,14 @@ func TestNewClientWithVersionParams(t *testing.T) {
 	if got, want := c.ProfileIconURL.String(), "http://ddragon.leagueoflegends.com/cdn/2/img/"; got != want {
 		t.Errorf("NewClient ProfileIconURL is %v, want %v", got, want)
 	}
-	if got, want := c.ChampionMasteryURL, "champion-mastery/v1"; got != want {
-		t.Errorf("NewClient ChampionMasteryURL is %v, want %v", got, want)
-	}
 	if got, want := c.ChampionURL, "platform/v1/champions"; got != want {
 		t.Errorf("NewClient ChampionURL is %v, want %v", got, want)
 	}
+	if got, want := c.ChampionMasteryURL, "champion-mastery/v1"; got != want {
+		t.Errorf("NewClient ChampionMasteryURL is %v, want %v", got, want)
+	}
 	if got, want := c.LeagueURL, "league/v1"; got != want {
 		t.Errorf("NewClient LeagueURL is %v, want %v", got, want)
-	}
-	if got, want := c.RunesURL, "platform/v1/runes"; got != want {
-		t.Errorf("NewClient RunesURL is %v, want %v", got, want)
 	}
 	if got, want := c.MasteriesURL, "platform/v1/masteries"; got != want {
 		t.Errorf("NewClient MasteriesURL is %v, want %v", got, want)
@@ -164,11 +160,14 @@ func TestNewClientWithVersionParams(t *testing.T) {
 	if got, want := c.MatchURL, "match/v1"; got != want {
 		t.Errorf("NewClient MasteriesURL is %v, want %v", got, want)
 	}
-	if got, want := c.SummonerURL, "summoner/v1/summoners"; got != want {
-		t.Errorf("NewClient SummonerURL is %v, want %v", got, want)
+	if got, want := c.RunesURL, "platform/v1/runes"; got != want {
+		t.Errorf("NewClient RunesURL is %v, want %v", got, want)
 	}
 	if got, want := c.StaticDataURL, "static-data/v1/"; got != want {
 		t.Errorf("NewClient StaticDataURL is %v, want %v", got, want)
+	}
+	if got, want := c.SummonerURL, "summoner/v1/summoners"; got != want {
+		t.Errorf("NewClient SummonerURL is %v, want %v", got, want)
 	}
 	if got, want := c.keyLol, "<api_key>"; got != want {
 		t.Errorf("NewClient SummonerURL is %v, want %v", got, want)
@@ -266,25 +265,24 @@ func TestDo_noContent(t *testing.T) {
 	}
 }
 
-func TestBool(t *testing.T){
+func TestBool(t *testing.T) {
 	c := Bool(true)
 
 	if !reflect.DeepEqual(*c, true) {
-		t.Errorf("Response %v value, want %v", *c,true)
+		t.Errorf("Response %v value, want %v", *c, true)
 	}
 }
 
 func TestNewRequest(t *testing.T) {
-	c := NewClient(nil,"", "", "", "", "")
+	c := NewClient(nil, "", "", "", "", "")
 
-	inURL, outURL := "foo", c.BaseURL.String() +"foo?api_key="
+	inURL, outURL := "foo", c.BaseURL.String()+"foo?api_key="
 	req, _ := c.NewRequest("GET", inURL, "")
 
 	// test that relative URL was expanded
 	if got, want := req.URL.String(), outURL; got != want {
 		t.Errorf("NewRequest(%q) URL is %v, want %v", inURL, got, want)
 	}
-
 
 	// test that default user-agent is attached to the request
 	if got, want := req.Header.Get("User-Agent"), c.UserAgent; got != want {
@@ -309,14 +307,14 @@ func TestNewRequest_invalidJSON(t *testing.T) {
 }
 
 func TestNewRequest_badURL(t *testing.T) {
-	c := NewClient(nil,"", "", "", "", "")
+	c := NewClient(nil, "", "", "", "", "")
 	_, err := c.NewRequest("GET", ":", nil)
 	testURLParseError(t, err)
 }
 
 // ensure that no User-Agent header is set if the client's UserAgent is empty.
 func TestNewRequest_emptyUserAgent(t *testing.T) {
-	c := NewClient(nil,"", "", "", "", "")
+	c := NewClient(nil, "", "", "", "", "")
 	c.UserAgent = ""
 	req, err := c.NewRequest("GET", "/", nil)
 	if err != nil {
@@ -328,7 +326,7 @@ func TestNewRequest_emptyUserAgent(t *testing.T) {
 }
 
 func TestNewRequest_emptyBody(t *testing.T) {
-	c := NewClient(nil,"", "", "", "", "")
+	c := NewClient(nil, "", "", "", "", "")
 	req, err := c.NewRequest("GET", "/", nil)
 	if err != nil {
 		t.Fatalf("NewRequest returned unexpected error: %v", err)
@@ -386,5 +384,3 @@ func TestErrorResponse_Error(t *testing.T) {
 		t.Errorf("Expected non-empty ErrorResponse.Error()")
 	}
 }
-
-
