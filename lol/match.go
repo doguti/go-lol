@@ -359,7 +359,6 @@ func (s *MatchService) GetMatchListByAccountID(ctx context.Context, accountID in
 	return uResp, resp, nil
 }
 
-
 // GetMatchListRecentByAccountID fetches matchlist for last 20 matches played on given account ID and platform ID.
 func (s *MatchService) GetMatchListRecentByAccountID(ctx context.Context, accountID int) (*MatchList, *Response, error) {
 	c := fmt.Sprintf("%v/matchlists/by-account/%v/recent", s.client.MatchURL, accountID)
@@ -377,7 +376,6 @@ func (s *MatchService) GetMatchListRecentByAccountID(ctx context.Context, accoun
 
 	return uResp, resp, nil
 }
-
 
 // GetTimelineByMatchID fetches match timeline by match ID.
 func (s *MatchService) GetTimelineByMatchID(ctx context.Context, matchID int) (*MatchTimeline, *Response, error) {
@@ -414,7 +412,6 @@ func (s *MatchService) GetMatchIdsByTournamentCode(ctx context.Context, tourname
 
 	return uResp, resp, nil
 }
-
 
 // GetMatchesByTournamentCode fetches match by match ID and tournament code
 func (s *MatchService) GetMatchesByTournamentCode(ctx context.Context, tournamentCode string) (*Match, *Response, error) {

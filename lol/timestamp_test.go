@@ -2,9 +2,9 @@ package lol
 
 import (
 	"encoding/json"
+	"fmt"
 	"testing"
 	"time"
-	"fmt"
 )
 
 const (
@@ -180,4 +180,3 @@ func TestWrappedTimstamp_MarshalReflexivity(t *testing.T) {
 		}
 	}
 }
-

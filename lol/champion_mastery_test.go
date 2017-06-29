@@ -1,11 +1,11 @@
 package lol
 
 import (
-	"testing"
-	"net/http"
-	"fmt"
 	"context"
+	"fmt"
+	"net/http"
 	"reflect"
+	"testing"
 )
 
 func TestChampionMastery_marshall(t *testing.T) {
@@ -39,7 +39,7 @@ func TestChampionMasteryService_Get(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/" + client.ChampionMasteryURL +"/champion-masteries/by-summoner/23231/by-champion/12", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+client.ChampionMasteryURL+"/champion-masteries/by-summoner/23231/by-champion/12", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `{"championId":12}`)
 	})
@@ -59,7 +59,7 @@ func TestChampionMasteryService_GetAll(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/" + client.ChampionMasteryURL +"/champion-masteries/by-summoner/23231", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+client.ChampionMasteryURL+"/champion-masteries/by-summoner/23231", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `[{"championId":12},{"championId":13}]`)
 	})
@@ -69,7 +69,7 @@ func TestChampionMasteryService_GetAll(t *testing.T) {
 		t.Errorf("ChampionMasteries.GetAll returned error: %v", err)
 	}
 
-	want := []*ChampionMastery{{ChampionID: Int(12)},{ChampionID: Int(13)}}
+	want := []*ChampionMastery{{ChampionID: Int(12)}, {ChampionID: Int(13)}}
 	if !reflect.DeepEqual(championMasteries, want) {
 		t.Errorf("ChampionMasteries.GetAll returned %+v, want %+v", championMasteries, want)
 	}
@@ -79,7 +79,7 @@ func TestChampionMasteryService_GetScore(t *testing.T) {
 	setup()
 	defer teardown()
 
-	mux.HandleFunc("/"+ client.ChampionMasteryURL +"/score/by-summoner/23231", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/"+client.ChampionMasteryURL+"/score/by-summoner/23231", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
 		fmt.Fprint(w, `0`)
 	})

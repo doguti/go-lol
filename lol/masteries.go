@@ -10,8 +10,8 @@ type MasteriesService service
 
 // Masteries represent a MasteryPagesDto.
 type Masteries struct {
-	SummonerID *int     `json:"summonerId,omitempty"`     // Summoner name.
-	Pages      []MasteryPage     `json:"pages,omitempty"` //Summoner name.
+	SummonerID *int          `json:"summonerId,omitempty"` // Summoner name.
+	Pages      []MasteryPage `json:"pages,omitempty"`      //Summoner name.
 }
 
 func (t Masteries) String() string {
@@ -21,9 +21,9 @@ func (t Masteries) String() string {
 // MasteryPage represent a MasteryPageDto.
 type MasteryPage struct {
 	Current   *bool     `json:"current,omitempty"`   // Summoner name.
-	Masteries []Mastery     `json:"masteries,omitempty"` // Summoner name.
-	Name      *string     `json:"name,omitempty"`      // Summoner name.
-	ID        *int     `json:"id,omitempty"`        // Summoner name.
+	Masteries []Mastery `json:"masteries,omitempty"` // Summoner name.
+	Name      *string   `json:"name,omitempty"`      // Summoner name.
+	ID        *int      `json:"id,omitempty"`        // Summoner name.
 }
 
 func (t MasteryPage) String() string {
@@ -32,9 +32,9 @@ func (t MasteryPage) String() string {
 
 // Mastery represent a MasteryDto.
 type Mastery struct {
-	MasteryID   *int     `json:"masteryId,omitempty"`
-	ID   *int     `json:"id,omitempty"`   // Summoner name.
-	Rank *int     `json:"rank,omitempty"` //Summoner name.
+	MasteryID *int `json:"masteryId,omitempty"`
+	ID        *int `json:"id,omitempty"`   // Summoner name.
+	Rank      *int `json:"rank,omitempty"` //Summoner name.
 }
 
 func (t Mastery) String() string {
