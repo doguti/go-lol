@@ -10,14 +10,14 @@ type ChampionMasteryService service
 
 // ChampionMastery represent a ChampionMasteryDTO.
 type ChampionMastery struct {
-	ChestGranted                 *bool     `json:"chestGranted,omitempty"`                 // Is chest granted for this champion or not in current season.
-	ChampionLevel                *int      `json:"championLevel,omitempty"`                // Champion level for specified player and champion combination.
-	ChampionPoints               *int      `json:"championPoints,omitempty"`               // Total number of champion points for this player and champion combination - they are used to determine championLevel.
-	ChampionID                   *int      `json:"championId,omitempty"`                   // Champion ID for this entry.
-	PlayerID                     *int      `json:"playerId,omitempty"`                     // Player ID for this entry.
-	ChampionPointsUntilNextLevel *int      `json:"championPointsUntilNextLevel,omitempty"` // Number of points needed to achieve next level.
-	ChampionPointsSinceLastLevel *int      `json:"championPointsSinceLastLevel,omitempty"` // Number of points earned since current level has been achieved.
-	LastPlayTime                 *int      `json:"lastPlayTime,omitempty"`                 // Last time this champion was played by this player - in Unix milliseconds time format.
+	ChestGranted                 *bool `json:"chestGranted,omitempty"`                 // Is chest granted for this champion or not in current season.
+	ChampionLevel                *int  `json:"championLevel,omitempty"`                // Champion level for specified player and champion combination.
+	ChampionPoints               *int  `json:"championPoints,omitempty"`               // Total number of champion points for this player and champion combination - they are used to determine championLevel.
+	ChampionID                   *int  `json:"championId,omitempty"`                   // Champion ID for this entry.
+	PlayerID                     *int  `json:"playerId,omitempty"`                     // Player ID for this entry.
+	ChampionPointsUntilNextLevel *int  `json:"championPointsUntilNextLevel,omitempty"` // Number of points needed to achieve next level.
+	ChampionPointsSinceLastLevel *int  `json:"championPointsSinceLastLevel,omitempty"` // Number of points earned since current level has been achieved.
+	LastPlayTime                 *int  `json:"lastPlayTime,omitempty"`                 // Last time this champion was played by this player - in Unix milliseconds time format.
 }
 
 func (t ChampionMastery) String() string {

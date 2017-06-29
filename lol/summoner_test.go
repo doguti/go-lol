@@ -2,11 +2,11 @@ package lol
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"net/http"
 	"reflect"
 	"testing"
-	"fmt"
-	"errors"
 )
 
 func TestSummoner_marshall(t *testing.T) {

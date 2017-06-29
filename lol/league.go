@@ -10,10 +10,10 @@ type LeagueService service
 
 // LeagueList represent a LeagueListDTO.
 type LeagueList struct {
-	Tier    *string     `json:"tier,omitempty"`
-	Queue   *string     `json:"queue,omitempty"`
-	Name    *string     `json:"name,omitempty"`
-	Entries []LeagueItem     `json:"pages,omitempty"`
+	Tier    *string      `json:"tier,omitempty"`
+	Queue   *string      `json:"queue,omitempty"`
+	Name    *string      `json:"name,omitempty"`
+	Entries []LeagueItem `json:"pages,omitempty"`
 }
 
 func (t LeagueList) String() string {
@@ -23,16 +23,16 @@ func (t LeagueList) String() string {
 // LeagueItem represent a LeagueItemDTO.
 type LeagueItem struct {
 	Rank             *string     `json:"rank,omitempty"`
-	HotStreak        *bool     `json:"hotStreak,omitempty"`
-	MiniSeries       *MiniSeries     `json:"miniSeries,omitempty"`
-	Wins             *int     `json:"wins,omitempty"`
-	Veteran          *bool     `json:"veteran,omitempty"`
-	Losses           *int     `json:"losses,omitempty"`
+	HotStreak        *bool       `json:"hotStreak,omitempty"`
+	MiniSeries       *MiniSeries `json:"miniSeries,omitempty"`
+	Wins             *int        `json:"wins,omitempty"`
+	Veteran          *bool       `json:"veteran,omitempty"`
+	Losses           *int        `json:"losses,omitempty"`
 	PlayerOrTeamID   *string     `json:"playerOrTeamId,omitempty"`
 	PlayerOrTeamName *string     `json:"playerOrTeamName,omitempty"`
-	Inactive         *bool     `json:"inactive,omitempty"`
-	FreshBlood       *bool     `json:"freshBlood,omitempty"`
-	LeaguePoints     *int     `json:"leaguePoints,omitempty"`
+	Inactive         *bool       `json:"inactive,omitempty"`
+	FreshBlood       *bool       `json:"freshBlood,omitempty"`
+	LeaguePoints     *int        `json:"leaguePoints,omitempty"`
 }
 
 func (t LeagueItem) String() string {
@@ -41,10 +41,10 @@ func (t LeagueItem) String() string {
 
 // MiniSeries represent a MiniSeriesDTO.
 type MiniSeries struct {
-	Wins     *int     `json:"wins,omitempty"`
-	Losses   *int     `json:"losses,omitempty"`
-	Target   *int     `json:"target,omitempty"`
-	Progress *string     `json:"progress,omitempty"`
+	Wins     *int    `json:"wins,omitempty"`
+	Losses   *int    `json:"losses,omitempty"`
+	Target   *int    `json:"target,omitempty"`
+	Progress *string `json:"progress,omitempty"`
 }
 
 func (t MiniSeries) String() string {
@@ -55,18 +55,18 @@ func (t MiniSeries) String() string {
 type LeaguePosition struct {
 	Rank             *string     `json:"rank,omitempty"`
 	QueueType        *string     `json:"queueType,omitempty"`
-	HotStreak        *bool     `json:"hotStreak,omitempty"`
-	MiniSeries       *MiniSeries     `json:"miniSeries,omitempty"`
-	Wins             *int     `json:"wins,omitempty"`
-	Veteran          *bool     `json:"veteran,omitempty"`
-	Losses           *int     `json:"losses,omitempty"`
+	HotStreak        *bool       `json:"hotStreak,omitempty"`
+	MiniSeries       *MiniSeries `json:"miniSeries,omitempty"`
+	Wins             *int        `json:"wins,omitempty"`
+	Veteran          *bool       `json:"veteran,omitempty"`
+	Losses           *int        `json:"losses,omitempty"`
 	PlayerOrTeamID   *string     `json:"playerOrTeamId,omitempty"`
 	LeagueName       *string     `json:"leagueName,omitempty"`
 	PlayerOrTeamName *string     `json:"playerOrTeamName,omitempty"`
-	Inactive         *bool     `json:"inactive,omitempty"`
-	FreshBlood       *bool     `json:"freshBlood,omitempty"`
+	Inactive         *bool       `json:"inactive,omitempty"`
+	FreshBlood       *bool       `json:"freshBlood,omitempty"`
 	Tier             *string     `json:"tier,omitempty"`
-	LeaguePoints     *int     `json:"leaguePoints,omitempty"`
+	LeaguePoints     *int        `json:"leaguePoints,omitempty"`
 }
 
 func (t LeaguePosition) String() string {

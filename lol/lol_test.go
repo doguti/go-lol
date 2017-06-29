@@ -1,17 +1,17 @@
 package lol
 
 import (
-	"net/http"
+	"bytes"
 	"context"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
 	"net/http/httptest"
 	"net/url"
-	"testing"
-	"encoding/json"
-	"bytes"
 	"reflect"
-	"io/ioutil"
-	"fmt"
 	"strings"
+	"testing"
 )
 
 var (

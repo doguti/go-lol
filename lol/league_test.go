@@ -1,11 +1,11 @@
 package lol
 
 import (
-	"testing"
-	"net/http"
-	"fmt"
 	"context"
+	"fmt"
+	"net/http"
 	"reflect"
+	"testing"
 )
 
 func TestLeague_marshall_LeagueList(t *testing.T) {

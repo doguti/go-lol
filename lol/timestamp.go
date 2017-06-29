@@ -34,4 +34,3 @@ func (t *Timestamp) UnmarshalJSON(data []byte) (err error) {
 func (t Timestamp) Equal(u Timestamp) bool {
 	return t.Time.Equal(u.Time)
 }
-

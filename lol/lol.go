@@ -1,15 +1,15 @@
 package lol
 
 import (
-	"net/url"
 	"net/http"
+	"net/url"
 	"sync"
 
+	"bytes"
 	"context"
-	"io"
 	"encoding/json"
 	"fmt"
-	"bytes"
+	"io"
 	"strings"
 )
 
@@ -178,7 +178,7 @@ func newResponse(r *http.Response) *Response {
 
 // ErrorResponse create a message of error by HTTP response
 type ErrorResponse struct {
-	Response *http.Response                  // HTTP response that caused this error
+	Response *http.Response // HTTP response that caused this error
 	Message  string         `json:"message"` // error message
 }
 

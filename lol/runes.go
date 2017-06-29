@@ -10,8 +10,8 @@ type RunesService service
 
 // RunePages represent a RunePagesDto.
 type RunePages struct {
-	Pages      []RunePage     `json:"pages,omitempty"` // Collection of rune pages associated with the summoner.
-	SummonerID *int      `json:"summonerId,omitempty"` // Summoner ID.
+	Pages      []RunePage `json:"pages,omitempty"`      // Collection of rune pages associated with the summoner.
+	SummonerID *int       `json:"summonerId,omitempty"` // Summoner ID.
 }
 
 func (t RunePages) String() string {
@@ -20,10 +20,10 @@ func (t RunePages) String() string {
 
 // RunePage represent a RunePageDto.
 type RunePage struct {
-	Current *bool     `json:"current,omitempty"`    //	Indicates if the page is the current page.
-	Slots   []RuneSlot     `json:"slots,omitempty"` // Collection of rune slots associated with the rune page.
-	Name    *string     `json:"name,omitempty"`     // Rune page name.
-	ID      *int      `json:"id,omitempty"`         // Rune page ID.
+	Current *bool      `json:"current,omitempty"` //	Indicates if the page is the current page.
+	Slots   []RuneSlot `json:"slots,omitempty"`   // Collection of rune slots associated with the rune page.
+	Name    *string    `json:"name,omitempty"`    // Rune page name.
+	ID      *int       `json:"id,omitempty"`      // Rune page ID.
 }
 
 func (t RunePage) String() string {
@@ -32,8 +32,8 @@ func (t RunePage) String() string {
 
 // RuneSlot represent a RuneSlotDto.
 type RuneSlot struct {
-	RuneSlotID *int     `json:"runeSlotId,omitempty"` // Rune slot ID.
-	RuneID     *int     `json:"runeId,omitempty"`     // Rune ID associated with the rune slot.
+	RuneSlotID *int `json:"runeSlotId,omitempty"` // Rune slot ID.
+	RuneID     *int `json:"runeId,omitempty"`     // Rune ID associated with the rune slot.
 }
 
 func (t RuneSlot) String() string {

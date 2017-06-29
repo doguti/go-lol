@@ -1,10 +1,10 @@
 package lol
 
 import (
-	"fmt"
-	"reflect"
 	"bytes"
+	"fmt"
 	"io"
+	"reflect"
 )
 
 var timestampType = reflect.TypeOf(Timestamp{})
