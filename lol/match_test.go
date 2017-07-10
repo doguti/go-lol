@@ -173,7 +173,7 @@ func TestMatch_marshall(t *testing.T) {
 		},
 	}
 
-	participants := []Participant{
+	participants := []ParticipantDto{
 		{
 			Stats:                     participantStats,
 			ParticipantID:             Int(1),

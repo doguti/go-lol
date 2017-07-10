@@ -20,7 +20,7 @@ type Match struct {
 	MapID                 *int                  `json:"mapId,omitempty"`
 	GameType              *string               `json:"gameType,omitempty"`
 	Teams                 []TeamStats           `json:"teams,omitempty"`
-	Participants          []Participant         `json:"participants,omitempty"`
+	Participants          []ParticipantDto         `json:"participants,omitempty"`
 	GameDuration          *int                  `json:"gameDuration,omitempty"`
 	GameCreation          *int                  `json:"gameCreation,omitempty"`
 }
@@ -89,8 +89,8 @@ func (t TeamBans) String() string {
 	return Stringify(t)
 }
 
-// Participant represent a ParticipantDto.
-type Participant struct {
+// ParticipantDto represent a ParticipantDto.
+type ParticipantDto struct {
 	Stats                     *ParticipantStats    `json:"stats,omitempty"`
 	ParticipantID             *int                 `json:"participantId,omitempty"`
 	Runes                     []Rune               `json:"runes,omitempty"`
@@ -103,7 +103,7 @@ type Participant struct {
 	ChampionID                *int                 `json:"championId,omitempty"`
 }
 
-func (t Participant) String() string {
+func (t ParticipantDto) String() string {
 	return Stringify(t)
 }
 
@@ -189,8 +189,9 @@ func (t ParticipantStats) String() string {
 
 // Rune represent a RuneDto.
 type Rune struct {
-	RuneID *int `json:"runeId,omitempty"`
+	RuneID *int `json:"runeId,omitempty"` // The ID of the rune
 	Rank   *int `json:"rank,omitempty"`
+	Count   *int `json:"count,omitempty"` // The count of this rune used by the participant
 }
 
 func (t Rune) String() string {

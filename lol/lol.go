@@ -50,6 +50,7 @@ type Client struct {
 	Masteries         *MasteriesService
 	Match             *MatchService
 	Runes             *RunesService
+	Spectator         *SpectatorService
 	Summoners         *SummonerService
 
 	//EndPoints
@@ -59,6 +60,7 @@ type Client struct {
 	MasteriesURL       string
 	MatchURL           string
 	RunesURL           string
+	SpectatorURL       string
 	StaticDataURL      string
 	SummonerURL        string
 }
@@ -103,6 +105,7 @@ func NewClient(httpClient *http.Client, key string, reg string, lolV string, sta
 		MasteriesURL:       "platform/v" + lolV + "/masteries",
 		MatchURL:           "match/v" + lolV,
 		RunesURL:           "platform/v" + lolV + "/runes",
+		SpectatorURL:       "spectator/v" + lolV,
 		StaticDataURL:      "static-data/v" + lolV + "/",
 		SummonerURL:        "summoner/v" + lolV + "/summoners",
 		Locale:             locLg,
@@ -116,6 +119,7 @@ func NewClient(httpClient *http.Client, key string, reg string, lolV string, sta
 	c.Masteries = (*MasteriesService)(&c.common)
 	c.Match = (*MatchService)(&c.common)
 	c.Runes = (*RunesService)(&c.common)
+	c.Spectator = (*SpectatorService)(&c.common)
 	c.Summoners = (*SummonerService)(&c.common)
 	return c
 }
