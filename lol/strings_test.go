@@ -94,7 +94,7 @@ func TestString(t *testing.T) {
 		{MasteryPage{Name: String("n")}, `lol.MasteryPage{Name:"n"}`},
 		{MiniSeries{Progress: String("n")}, `lol.MiniSeries{Progress:"n"}`},
 		{Player{SummonerID: Int(1)}, `lol.Player{SummonerID:1}`},
-		{Participant{ParticipantID: Int(1)}, `lol.Participant{ParticipantID:1}`},
+		{ParticipantDto{ParticipantID: Int(1)}, `lol.ParticipantDto{ParticipantID:1}`},
 		{ParticipantIdentity{ParticipantID: Int(1)}, `lol.ParticipantIdentity{ParticipantID:1}`},
 		{ParticipantStats{PhysicalDamageDealt: Int(1)}, `lol.ParticipantStats{PhysicalDamageDealt:1}`},
 		{ParticipantTimeline{ParticipantID: Int(1)}, `lol.ParticipantTimeline{ParticipantID:1}`},
@@ -105,6 +105,13 @@ func TestString(t *testing.T) {
 		{Summoner{AccountID: Int(1)}, `lol.Summoner{AccountID:1}`},
 		{TeamBans{ChampionID: Int(1)}, `lol.TeamBans{ChampionID:1}`},
 		{TeamStats{TeamID: Int(1)}, `lol.TeamStats{TeamID:1}`},
+		{CurrentGameInfo{GameID: Int(1)}, `lol.CurrentGameInfo{GameID:1}`},
+		{BannedChampion{TeamID: Int(1)}, `lol.BannedChampion{TeamID:1}`},
+		{Observer{EncryptionKey: String("n")}, `lol.Observer{EncryptionKey:"n"}`},
+		{CurrentGameParticipant{TeamID: Int(1)}, `lol.CurrentGameParticipant{TeamID:1}`},
+		{FeaturedGames{ClientRefreshInterval: Int(1)}, `lol.FeaturedGames{ClientRefreshInterval:1}`},
+		{FeaturedGameInfo{GameID: Int(1)}, `lol.FeaturedGameInfo{GameID:1}`},
+		{Participant{TeamID: Int(1)}, `lol.Participant{TeamID:1}`},
 	}
 
 	for i, tt := range tests {

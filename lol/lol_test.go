@@ -116,6 +116,9 @@ func TestNewClient(t *testing.T) {
 	if got, want := c.RunesURL, "platform/v"+versionLOLURL+"/runes"; got != want {
 		t.Errorf("NewClient RunesURL is %v, want %v", got, want)
 	}
+	if got, want := c.SpectatorURL, "spectator/v"+versionLOLURL; got != want {
+		t.Errorf("NewClient SpectatorURL is %v, want %v", got, want)
+	}
 	if got, want := c.StaticDataURL, "static-data/v"+versionLOLURL+"/"; got != want {
 		t.Errorf("NewClient StaticDataURL is %v, want %v", got, want)
 	}
@@ -162,6 +165,9 @@ func TestNewClientWithVersionParams(t *testing.T) {
 	}
 	if got, want := c.RunesURL, "platform/v1/runes"; got != want {
 		t.Errorf("NewClient RunesURL is %v, want %v", got, want)
+	}
+	if got, want := c.SpectatorURL, "spectator/v1"; got != want {
+		t.Errorf("NewClient SpectatorURL is %v, want %v", got, want)
 	}
 	if got, want := c.StaticDataURL, "static-data/v1/"; got != want {
 		t.Errorf("NewClient StaticDataURL is %v, want %v", got, want)
