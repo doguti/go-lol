@@ -78,6 +78,7 @@ func TestString(t *testing.T) {
 	}{
 		{Champion{ID: Int(1)}, `lol.Champion{ID:1}`},
 		{ChampionMastery{ChampionID: Int(1)}, `lol.ChampionMastery{ChampionID:1}`},
+		{Incident{Active: Bool(true)}, `lol.Incident{Active:true}`},
 		{LeagueItem{Rank: String("n")}, `lol.LeagueItem{Rank:"n"}`},
 		{LeagueList{Name: String("n")}, `lol.LeagueList{Name:"n"}`},
 		{LeaguePosition{Rank: String("n")}, `lol.LeaguePosition{Rank:"n"}`},
@@ -92,6 +93,7 @@ func TestString(t *testing.T) {
 		{Masteries{SummonerID: Int(1)}, `lol.Masteries{SummonerID:1}`},
 		{Mastery{MasteryID: Int(1)}, `lol.Mastery{MasteryID:1}`},
 		{MasteryPage{Name: String("n")}, `lol.MasteryPage{Name:"n"}`},
+		{Message{Severity: String("lower")}, `lol.Message{Severity:"lower"}`},
 		{MiniSeries{Progress: String("n")}, `lol.MiniSeries{Progress:"n"}`},
 		{Player{SummonerID: Int(1)}, `lol.Player{SummonerID:1}`},
 		{Participant{ParticipantID: Int(1)}, `lol.Participant{ParticipantID:1}`},
@@ -102,9 +104,12 @@ func TestString(t *testing.T) {
 		{RunePage{ID: Int(1)}, `lol.RunePage{ID:1}`},
 		{RunePages{SummonerID: Int(1)}, `lol.RunePages{SummonerID:1}`},
 		{RuneSlot{RuneID: Int(1)}, `lol.RuneSlot{RuneID:1}`},
+		{Service{Name: String("Client")}, `lol.Service{Name:"Client"}`},
+		{ShardStatus{Name: String("EU West")}, `lol.ShardStatus{Name:"EU West"}`},
 		{Summoner{AccountID: Int(1)}, `lol.Summoner{AccountID:1}`},
 		{TeamBans{ChampionID: Int(1)}, `lol.TeamBans{ChampionID:1}`},
 		{TeamStats{TeamID: Int(1)}, `lol.TeamStats{TeamID:1}`},
+		{Translation{Locale: String("es")}, `lol.Translation{Locale:"es"}`},
 	}
 
 	for i, tt := range tests {
